@@ -97,10 +97,14 @@ public class Main {
 				.desc("Output file, where output is written.Default value: the standard output.")
 				.build());
 		
-		// input
-		
-		cmdLineOptions.addOption(Option.builder("i").longOpt("input").hasArg()
-				.desc("Bodies JSON input file.")
+		// expected output
+				cmdLineOptions.addOption(Option.builder("eo").longOpt("expected-output").hasArg()
+						.desc("The expected output file. If not provided no comparison is applied.")
+						.build());
+				
+		// steps
+		cmdLineOptions.addOption(Option.builder("s").longOpt("steps").hasArg()
+				.desc("An integer representating the number of simulation steps. Default value: 150")
 				.build());
 
 
