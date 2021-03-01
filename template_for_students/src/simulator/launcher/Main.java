@@ -99,14 +99,10 @@ public class Main {
 				.desc("Output file, where output is written.Default value: the standard output.")
 				.build());
 		
-		// expected output
-				cmdLineOptions.addOption(Option.builder("eo").longOpt("expected-output").hasArg()
-						.desc("The expected output file. If not provided no comparison is applied.")
-						.build());
-				
-		// steps
-		cmdLineOptions.addOption(Option.builder("s").longOpt("steps").hasArg()
-				.desc("An integer representating the number of simulation steps. Default value: 150")
+		// input
+		
+		cmdLineOptions.addOption(Option.builder("i").longOpt("input").hasArg()
+				.desc("Bodies JSON input file.")
 				.build());
 
 
@@ -152,9 +148,6 @@ public class Main {
 	
 	private static void parseOutputOption(CommandLine line) throws ParseException{
 		_oFile = line.getOptionValue("o");
-		if(_inFile == null) {
-			throw new ParseException("In batch mode an output file of bodies is required");
-		}
 	}
 
 	private static void parseHelpOption(CommandLine line, Options cmdLineOptions) {
@@ -238,6 +231,7 @@ public class Main {
 
 	private static void startBatchMode() throws Exception {
 		// TODO complete this method
+		OutputStream os = _oFile == null ? System.out: new FileOutputStream(new File(_outFile));
 	}
 
 	private static void start(String[] args) throws Exception {
