@@ -57,7 +57,7 @@ public class Main {
 			parseHelpOption(line, cmdLineOptions);
 			parseInFileOption(line);
 			// TODO add support of -o, -eo, and -s (define corresponding parse methods)
-
+			parseOutputOption(line);
 			parseDeltaTimeOption(line);
 			parseForceLawsOption(line);
 			parseStateComparatorOption(line);
@@ -95,6 +95,12 @@ public class Main {
 		// output
 		cmdLineOptions.addOption(Option.builder("o").longOpt("output").hasArg()
 				.desc("Output file, where output is written.Default value: the standard output.")
+				.build());
+		
+		// input
+		
+		cmdLineOptions.addOption(Option.builder("i").longOpt("input").hasArg()
+				.desc("Bodies JSON input file.")
 				.build());
 
 
@@ -136,6 +142,12 @@ public class Main {
 
 		s = s + ". You can provide the 'data' json attaching :{...} to the tag, but without spaces.";
 		return s;
+	}
+	
+	private static void parseOutputOption(CommandLine line) {
+		if(line.hasOption("o")) {
+			
+		}
 	}
 
 	private static void parseHelpOption(CommandLine line, Options cmdLineOptions) {
