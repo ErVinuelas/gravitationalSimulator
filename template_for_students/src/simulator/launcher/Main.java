@@ -91,6 +91,12 @@ public class Main {
 
 		// TODO add support for -o, -eo, and -s (add corresponding information to
 		// cmdLineOptions)
+		
+		// output
+		cmdLineOptions.addOption(Option.builder("o").longOpt("output").hasArg()
+				.desc("Output file, where output is written.Default value: the standard output.")
+				.build());
+
 
 		// delta-time
 		cmdLineOptions.addOption(Option.builder("dt").longOpt("delta-time").hasArg()
