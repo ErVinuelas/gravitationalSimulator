@@ -25,6 +25,7 @@ public class Main {
 	// some attributes to stores values corresponding to command-line parameters
 	//
 	private static Double _dtime = null;
+	private static String _oFile = null;
 	private static String _inFile = null;
 	private static JSONObject _forceLawsInfo = null;
 	private static JSONObject _stateComparatorInfo = null;
@@ -58,6 +59,7 @@ public class Main {
 			parseInFileOption(line);
 			// TODO add support of -o, -eo, and -s (define corresponding parse methods)
 			parseOutputOption(line);
+			
 			parseDeltaTimeOption(line);
 			parseForceLawsOption(line);
 			parseStateComparatorOption(line);
@@ -144,9 +146,10 @@ public class Main {
 		return s;
 	}
 	
-	private static void parseOutputOption(CommandLine line) {
-		if(line.hasOption("o")) {
-			
+	private static void parseOutputOption(CommandLine line) throws ParseException{
+		_oFile = line.getOptionValue("o");
+		if(_inFile == null) {
+			throw new ParseException("In batch mode an output file of bodies is required");
 		}
 	}
 
