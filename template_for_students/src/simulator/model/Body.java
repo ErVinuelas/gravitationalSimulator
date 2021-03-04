@@ -1,6 +1,9 @@
 package simulator.model;
 
 import simulator.misc.Vector2D;
+import org.json.*;
+
+
 
 public class Body { //Representa una entidad física
 	protected String identif;
@@ -40,6 +43,22 @@ public class Body { //Representa una entidad física
 	
 	void move(double t) {
 		
+	}
+	
+	public JSONObject getState() {
+		JSONObject data = new JSONObject();
+		JSONObject state = new JSONObject();
+		state.put("type", "basic");
+		data.put("p", position);
+		data.put("v", velocity);
+		data.put("m", mass);
+		state.put("data", data);
+
+		return data;
+	}
+	
+	public String toString() {
+		return getState().toString();
 	}
 	
 }
