@@ -59,7 +59,7 @@ public class Main {
 			parseInFileOption(line);
 			// TODO add support of -o, -eo, and -s (define corresponding parse methods)
 			parseOutputOption(line);
-			
+			parseExpectedOutputOption(line);
 			parseDeltaTimeOption(line);
 			parseForceLawsOption(line);
 			parseStateComparatorOption(line);
@@ -151,10 +151,16 @@ public class Main {
 	
 	private static void parseOutputOption(CommandLine line) throws ParseException{
 		_oFile = line.getOptionValue("o");
+		if(_oFile == null) {
+			throw new ParseException("In batch mode an input file of bodies is required");
+		}
 	}
 	
 	private static void parseExpectedOutputOption(CommandLine line) throws ParseException{
-		
+		_oFile = line.getOptionValue("eo");
+		if(_oFile == null) {
+			throw new ParseException("In batch mode an input file of bodies is required");
+		}
 	}
 
 	private static void parseHelpOption(CommandLine line, Options cmdLineOptions) {
