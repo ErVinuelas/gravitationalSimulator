@@ -1,2 +1,6 @@
 /Factory.class
 /BuilderBasedFactory.class
+/Builder.class
+/BasicBodyBuilder.class
+/MassLosingBodyBuilder.class
+/NewtonUniversalGravitationBuilder.class
