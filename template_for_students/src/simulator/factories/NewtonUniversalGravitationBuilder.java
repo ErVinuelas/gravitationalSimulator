@@ -1,5 +1,7 @@
 package simulator.factories;
 
-public class NewtonUniversalGravitationBuilder {
+import simulator.model.ForceLaws;
+
+public class NewtonUniversalGravitationBuilder extends Builder<ForceLaws>{
 
 }

@@ -4,3 +4,7 @@
 /BasicBodyBuilder.class
 /MassLosingBodyBuilder.class
 /NewtonUniversalGravitationBuilder.class
+/MovingTowardsFixedPointBuilder.class
+/NoForceBuilder.class
+/MassEqualStatesBuilder.class
+/EpsilonEqualStatesBuilder.class

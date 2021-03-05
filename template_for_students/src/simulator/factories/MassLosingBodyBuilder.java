@@ -1,5 +1,7 @@
 package simulator.factories;
 
-public class MassLosingBodyBuilder {
+import simulator.model.Body;
+
+public class MassLosingBodyBuilder extends Builder<Body>{
 
 }
