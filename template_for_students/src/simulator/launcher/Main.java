@@ -149,17 +149,14 @@ public class Main {
 		return s;
 	}
 	
-	private static void parseOutputOption(CommandLine line) throws ParseException{
+	private static void parseOutputOption(CommandLine line){
 		_oFile = line.getOptionValue("o");
-		if(_oFile == null) {
-			throw new ParseException("In batch mode an input file of bodies is required");
-		}
 	}
 	
 	private static void parseExpectedOutputOption(CommandLine line) throws ParseException{
-		_oFile = line.getOptionValue("eo");
-		if(_oFile == null) {
-			throw new ParseException("In batch mode an input file of bodies is required");
+		_inFile = line.getOptionValue("eo");
+		if(_inFile == null) {
+			throw new ParseException("In batch mode an input file for expected output is required");
 		}
 	}
 
@@ -244,7 +241,7 @@ public class Main {
 
 	private static void startBatchMode() throws Exception {
 		// TODO complete this method
-		OutputStream os = _oFile == null ? System.out: new FileOutputStream(new File(_outFile));
+		OutputStream os = _oFile == null ? System.out: new FileOutputStream(new File(_oFile));
 	}
 
 	private static void start(String[] args) throws Exception {
