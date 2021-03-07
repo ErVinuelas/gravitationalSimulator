@@ -14,6 +14,14 @@ public class PhysicsSimulator {
 	
 	private double time = 0.0;
 	
+	/*Constructor*/
+	
+	public PhysicsSimulator(double dt, ArrayList<ForceLaws> laws) {
+		this.dt = dt;
+		this.laws = laws;
+		bodies = new ArrayList<Body>();
+	}
+	
 	
 	/*Métodos*/
 	
