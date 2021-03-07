@@ -3,8 +3,6 @@ package simulator.model;
 import simulator.misc.Vector2D;
 import org.json.*;
 
-
-
 public class Body { //Representa una entidad física
 	protected String identif;
 	protected Vector2D velocity;
@@ -42,7 +40,12 @@ public class Body { //Representa una entidad física
 	}
 	
 	void move(double t) {
-		
+		Vector2D acceleration = new Vector2D();
+		if(mass != 0) {
+			acceleration = new Vector2D(force.scale(1/mass));
+		}
+		position = position.plus((velocity.scale(t)).plus(acceleration.scale(t*t/2)));
+		velocity = velocity.plus(acceleration.scale(t));
 	}
 	
 	public JSONObject getState() {
