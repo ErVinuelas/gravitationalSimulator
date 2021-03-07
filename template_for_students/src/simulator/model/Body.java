@@ -4,17 +4,33 @@ import simulator.misc.Vector2D;
 import org.json.*;
 
 public class Body { //Representa una entidad física
-	protected String identif;
+	protected String id;
 	protected Vector2D velocity;
 	protected Vector2D force;
 	protected Vector2D position;
 	protected double mass;
 	
+	//Constructor
+	public Body() {
+		this.id = "";
+		this.velocity = new Vector2D();
+		this.position = new Vector2D();
+		this.force = new Vector2D();
+		this.mass = 0.0;
+	}
+	public Body(String id, Vector2D velocity, Vector2D position, double mass) {
+		this.id = id;
+		this.velocity = velocity;
+		this.position = position;
+		this.force = new Vector2D();
+		this.mass = mass;
+	}
+	
 	
 	/*Getters y setters*/
 	
 	public String  getId() {
-		return identif;
+		return id;
 	}
 	public Vector2D getVelocity() {
 		return velocity;
