@@ -7,6 +7,10 @@ import simulator.misc.Vector2D;
 import simulator.model.Body;
 
 public class BasicBodyBuilder extends Builder<Body>{
+	public BasicBodyBuilder() {
+		_typeTag = "basic";
+		_desc = "a basic body";
+	}
 	@Override
 	public Body createTheInstance(JSONObject info) {
 		String id = info.getString("id");
