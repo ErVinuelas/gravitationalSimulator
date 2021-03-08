@@ -1,14 +1,21 @@
 package simulator.factories;
 
+import org.json.JSONObject;
+
 import simulator.model.ForceLaws;
 
 public class NewtonUniversalGravitationBuilder extends Builder<ForceLaws>{
-	
-	
-	
-	/*Constructor*/
-	
-	public BuilderBasedFactory(List<Builder<T>> builders) {
-		
+
+	@Override
+	public ForceLaws createTheInstance(JSONObject info) {
+		// TODO Auto-generated method stub
+		return null;
 	}
+
+	@Override
+	public JSONObject createData() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }
