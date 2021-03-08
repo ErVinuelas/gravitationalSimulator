@@ -4,7 +4,7 @@ package simulator.model;
 import java.util.ArrayList;
 import simulator.model.Body;
 import simulator.model.ForceLaws;
-import org.json.JSONObject;
+import org.json.*;
 
 public class PhysicsSimulator {
 	
@@ -13,6 +13,14 @@ public class PhysicsSimulator {
 	private ArrayList<Body> bodies;
 	
 	private double time = 0.0;
+	
+	/*Constructor*/
+	
+	public PhysicsSimulator(double dt, ArrayList<ForceLaws> laws) {
+		this.dt = dt;
+		this.laws = laws;
+		bodies = new ArrayList<Body>();
+	}
 	
 	
 	/*Métodos*/
@@ -35,14 +43,14 @@ public class PhysicsSimulator {
 	
 	public JSONObject getState() {
 		JSONObject simulator = new JSONObject();
-		simulator.add("time", time);
-		JSONObject[] jBodies = new JSONObject[];
+		simulator.append("time", time);
+		ArrayList<JSONObject> jBodies = new ArrayList<JSONObject>();
 		for(Body bd : bodies) {
 			JSONObject jBody = new JSONObject();
 			jBody = bd.getState();
 			jBodies.add(jBody);
 		}
-		simulator.add("bodies", jBodies);
+		simulator.append("bodies", jBodies);
 		
 		return simulator;
 	}
