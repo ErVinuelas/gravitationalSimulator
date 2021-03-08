@@ -23,7 +23,13 @@ public abstract class Builder<T> {
 	
 	public abstract T createTheInstance(JSONObject info);
 	
-	public abstract JSONObject getBuilderInfo() {
-		
+	public abstract JSONObject createData();
+	
+	public JSONObject getBuilderInfo() {
+		JSONObject jo = new JSONObject();
+		jo.put("type", _typeTag);
+		jo.put("data", createData());
+		jo.put("desc", _desc);
+		return jo;
 	}
 }
