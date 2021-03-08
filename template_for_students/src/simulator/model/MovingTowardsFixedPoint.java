@@ -15,7 +15,6 @@ public class MovingTowardsFixedPoint implements ForceLaws{
 		for(Body bo : bs) {
 			di = (bo.getPosition()).direction();
 			a = di.scale((-1) * g);
-			bo.resetForce();
 			bo.addForce(a.scale(bo.getMass()));
 		}
 	}

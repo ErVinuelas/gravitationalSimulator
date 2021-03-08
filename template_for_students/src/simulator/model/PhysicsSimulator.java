@@ -2,8 +2,6 @@ package simulator.model;
 
 
 import java.util.ArrayList;
-import simulator.model.Body;
-import simulator.model.ForceLaws;
 import org.json.*;
 
 public class PhysicsSimulator {

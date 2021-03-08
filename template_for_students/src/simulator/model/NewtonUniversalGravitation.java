@@ -15,9 +15,6 @@ public class NewtonUniversalGravitation implements ForceLaws{
 
 	@Override
 	public void apply(List<Body> bs) {
-		for(Body bo : bs) {
-			bo.resetForce();
-		}
 		Vector2D Fij = new Vector2D();
 		for(int i = 0; i < bs.size(); ++i) {
 			for(int j = i; j < bs.size(); ++j) {
