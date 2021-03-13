@@ -1,30 +1,33 @@
 package simulator.factories;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import simulator.misc.Vector2D;
 import simulator.model.Body;
 
 public class BasicBodyBuilder extends Builder<Body>{
+	
 	public BasicBodyBuilder() {
 		_typeTag = "basic";
 		_desc = "a basic body";
 	}
+	
 	@Override
-	public Body createTheInstance(JSONObject info) throws IllegalArgumentException{
-		try {
+	public Body createTheInstance(JSONObject info) {
 		String id = info.getString("id");
-		JSONArray jArr = info.getJSONArray("p");
-		Vector2D position = new Vector2D(jArr.getDouble(0), jArr.getDouble(1));
-		jArr = info.getJSONArray("v");
-		Vector2D velocity = new Vector2D(jArr.getDouble(0), jArr.getDouble(1));
-		double mass = info.getDouble("m");
+		
+		JSONObject jData = info.getJSONObject("data"); //Accedemos al JSONObject data
+		
+		JSONArray jP = jData.getJSONArray("p");//Accedemos a possicion y creamos
+		Vector2D position = new Vector2D(jP.getDouble(0), jP.getDouble(1));
+		
+		JSONArray jV = jData.getJSONArray("v");//Accedemos a la velocidad y creamos
+		Vector2D velocity = new Vector2D(jV.getDouble(0), jV.getDouble(1));
+		
+		double mass = jData.getDouble("m");//Accedemos a la masa
+		
 		return new Body(id, velocity, position, mass);
-		} catch(JSONException e) {
-			throw new IllegalArgumentException();
-		}
 	}
 
 	@Override

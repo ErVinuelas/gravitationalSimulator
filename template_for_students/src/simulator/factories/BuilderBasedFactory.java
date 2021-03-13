@@ -9,7 +9,7 @@ public class BuilderBasedFactory<T> implements Factory<T>{
 	
 	private List<Builder<T>> builders;
 		
-	BuilderBasedFactory(List<Builder<T>> list){
+	public BuilderBasedFactory(List<Builder<T>> list){
 		builders = list;
 	}
 

@@ -1,6 +1,7 @@
 package simulator.launcher;
 
 import java.io.*;
+import java.util.ArrayList;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -12,9 +13,10 @@ import org.apache.commons.cli.ParseException;
 import org.json.JSONObject;
 
 import simulator.control.StateComparator;
-import simulator.factories.Factory;
 import simulator.model.Body;
 import simulator.model.ForceLaws;
+import simulator.factories.*;
+import simulator.model.PhysicsSimulator;
 
 public class Main {
 
@@ -24,6 +26,8 @@ public class Main {
 	private final static String _forceLawsDefaultValue = "nlug";
 	private final static String _stateComparatorDefaultValue = "epseq";
 
+	private final static Integer _stepsDefaultValue = 150;
+
 	// some attributes to stores values corresponding to command-line parameters
 	//
 	private static Double _dtime = null;
@@ -32,17 +36,41 @@ public class Main {
 	private static JSONObject _forceLawsInfo = null;
 	private static JSONObject _stateComparatorInfo = null;
 
+	private static Integer _steps = null;
+
 	// factories
 	private static Factory<Body> _bodyFactory;
 	private static Factory<ForceLaws> _forceLawsFactory;
 	private static Factory<StateComparator> _stateComparatorFactory;
 
 	private static void init() {
-		// TODO initialize the bodies factory
+		// initialize the bodies factory
+
+		ArrayList<Builder<Body>> bodyBuilders = new ArrayList<>();
+
+		bodyBuilders.add(new BasicBodyBuilder());
+		bodyBuilders.add(new MassLosingBodyBuilder());
+
+		_bodyFactory = new BuilderBasedFactory<Body>(bodyBuilders);
 
 		// TODO initialize the force laws factory
 
-		// TODO initialize the state comparator
+		ArrayList<Builder<ForceLaws>> lawBuilders = new ArrayList<>();
+
+		lawBuilders.add(new NewtonUniversalGravitationBuilder());
+		lawBuilders.add(new NoForceBuilder());
+		lawBuilders.add(new MovingTowardsFixedPointBuilder());
+
+		_forceLawsFactory = new BuilderBasedFactory<ForceLaws>(lawBuilders);
+
+		// initialize the state comparator
+
+		ArrayList<Builder<StateComparator>> stateBuilders = new ArrayList<>();
+
+		stateBuilders.add(new EpsilonEqualStatesBuilder());
+		stateBuilders.add(new MassEqualStatesBuilder());
+
+		_stateComparatorFactory = new BuilderBasedFactory<StateComparator>(stateBuilders);
 	}
 
 	private static void parseArgs(String[] args) {
@@ -62,6 +90,8 @@ public class Main {
 			// TODO add support of -o, -eo, and -s (define corresponding parse methods)
 			parseOutputOption(line);
 			parseExpectedOutputOption(line);
+			parseStepsOption(line);
+
 			parseDeltaTimeOption(line);
 			parseForceLawsOption(line);
 			parseStateComparatorOption(line);
@@ -93,23 +123,17 @@ public class Main {
 		// input file
 		cmdLineOptions.addOption(Option.builder("i").longOpt("input").hasArg().desc("Bodies JSON input file.").build());
 
-		// TODO add support for -o, -eo, and -s (add corresponding information to
-		// cmdLineOptions)
-		
 		// output
 		cmdLineOptions.addOption(Option.builder("o").longOpt("output").hasArg()
-				.desc("Output file, where output is written.Default value: the standard output.")
-				.build());
-		
+				.desc("Output file, where output is written.Default value: the standard output.").build());
+
 		// expected output
 		cmdLineOptions.addOption(Option.builder("eo").longOpt("expected-output").hasArg()
-				.desc("The expected output file. If not provided no comparison is applied")
-				.build());
+				.desc("The expected output file. If not provided no comparison is applied").build());
 
 		// steps
 		cmdLineOptions.addOption(Option.builder("s").longOpt("steps").hasArg()
-				.desc("An integer representating the number of simulation steps. Default value: 150")
-				.build());
+				.desc("An integer representating the number of simulation steps. Default value: 150").build());
 
 		// delta-time
 		cmdLineOptions.addOption(Option.builder("dt").longOpt("delta-time").hasArg()
@@ -150,16 +174,21 @@ public class Main {
 		s = s + ". You can provide the 'data' json attaching :{...} to the tag, but without spaces.";
 		return s;
 	}
-	
-	private static void parseOutputOption(CommandLine line){
+
+	private static void parseOutputOption(CommandLine line) {
 		_oFile = line.getOptionValue("o");
 	}
-	
-	private static void parseExpectedOutputOption(CommandLine line) throws ParseException{
+
+	private static void parseExpectedOutputOption(CommandLine line) throws ParseException {
 		_inFile = line.getOptionValue("eo");
-		if(_inFile == null) {
+		if (_inFile == null) {
 			throw new ParseException("In batch mode an input file for expected output is required");
 		}
+	}
+
+	private static void parseStepsOption(CommandLine line) {
+		String stps = line.getOptionValue("s", _stepsDefaultValue.toString());
+		_steps = Integer.parseInt(stps);
 	}
 
 	private static void parseHelpOption(CommandLine line, Options cmdLineOptions) {
@@ -243,7 +272,8 @@ public class Main {
 
 	private static void startBatchMode() throws Exception {
 		// TODO complete this method
-		OutputStream os = _oFile == null ? System.out: new FileOutputStream(new File(_oFile));
+		PhysicsSimulator simulator = new PhysicsSimulator(_dtime, _forceLawsFactory);
+		OutputStream os = _oFile == null ? System.out : new FileOutputStream(new File(_oFile));
 	}
 
 	private static void start(String[] args) throws Exception {
