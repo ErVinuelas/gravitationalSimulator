@@ -4,10 +4,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import simulator.misc.Vector2D;
 
-public class EpsilonEqualStates {
+public class EpsilonEqualStates implements StateComparator{
 	
 	private double eps;
-	
 	
 	public EpsilonEqualStates(double eps) {
 		this.eps = eps;

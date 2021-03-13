@@ -8,12 +8,16 @@ public class BuilderBasedFactory<T> implements Factory<T>{
 	BuilderBasedFactory(List<Builder<T>> list){
 		
 	}
-	
-	public T createInstance(JSONObject json){
-		
+
+	@Override
+	public T createInstance(JSONObject info) {
+		// TODO Auto-generated method stub
+		return null;
 	}
-	
-	public List<JSONObject>getInfo(){
-		
+
+	@Override
+	public List<JSONObject> getInfo() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
