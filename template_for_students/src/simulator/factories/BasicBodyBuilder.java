@@ -1,6 +1,7 @@
 package simulator.factories;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import simulator.misc.Vector2D;
@@ -12,7 +13,8 @@ public class BasicBodyBuilder extends Builder<Body>{
 		_desc = "a basic body";
 	}
 	@Override
-	public Body createTheInstance(JSONObject info) {
+	public Body createTheInstance(JSONObject info) throws IllegalArgumentException{
+		try {
 		String id = info.getString("id");
 		JSONArray jArr = info.getJSONArray("p");
 		Vector2D position = new Vector2D(jArr.getDouble(0), jArr.getDouble(1));
@@ -20,6 +22,9 @@ public class BasicBodyBuilder extends Builder<Body>{
 		Vector2D velocity = new Vector2D(jArr.getDouble(0), jArr.getDouble(1));
 		double mass = info.getDouble("m");
 		return new Body(id, velocity, position, mass);
+		} catch(JSONException e) {
+			throw new IllegalArgumentException();
+		}
 	}
 
 	@Override

@@ -11,7 +11,7 @@ public class NoForceBuilder extends Builder<ForceLaws>{
 		_desc = "no force is applied";
 	}
 	@Override
-	public ForceLaws createTheInstance(JSONObject info) {
+	public ForceLaws createTheInstance(JSONObject info) throws IllegalArgumentException{
 		return new NoForce();
 	}
 

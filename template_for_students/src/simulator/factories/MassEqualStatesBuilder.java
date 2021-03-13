@@ -8,7 +8,7 @@ import simulator.control.StateComparator;
 public class MassEqualStatesBuilder extends Builder<StateComparator>{
 
 	@Override
-	public StateComparator createTheInstance(JSONObject info) {
+	public StateComparator createTheInstance(JSONObject info) throws IllegalArgumentException{
 		return new MassEqualStates();
 	}
 

@@ -10,10 +10,14 @@ public abstract class Builder<T> {
 	public T createInstance(JSONObject info) {
 		if(info.has("type")) {
 			if(_typeTag.equals(info.get("type"))) {
+				try {
 				return createTheInstance(info.getJSONObject("data"));
+				} catch(IllegalArgumentException iae) {
+					throw new IllegalArgumentException(iae);
+				}
 			}
 			else {
-				throw new IllegalArgumentException();
+				return null;
 			}
 		}
 		else {
@@ -21,7 +25,7 @@ public abstract class Builder<T> {
 		}
 	}
 	
-	public abstract T createTheInstance(JSONObject info);
+	public abstract T createTheInstance(JSONObject info) throws IllegalArgumentException;
 	
 	public abstract JSONObject createData();
 	

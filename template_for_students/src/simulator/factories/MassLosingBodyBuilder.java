@@ -1,6 +1,7 @@
 package simulator.factories;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import simulator.misc.Vector2D;
@@ -13,7 +14,8 @@ public class MassLosingBodyBuilder extends Builder<Body>{
 		_desc = "a body that loses mass";
 	}
 	
-	public MassLossingBody createTheInstance(JSONObject info) {
+	public MassLossingBody createTheInstance(JSONObject info) throws IllegalArgumentException{
+		try {
 		String id = info.getString("id");
 		JSONArray jArr = info.getJSONArray("p");
 		Vector2D position = new Vector2D(jArr.getDouble(0), jArr.getDouble(1));
@@ -23,6 +25,9 @@ public class MassLosingBodyBuilder extends Builder<Body>{
 		double freq = info.getDouble("freq");
 		double factor = info.getDouble("factor");
 		return new MassLossingBody(id, velocity, position, mass, factor, freq);
+		} catch(JSONException e) {
+			throw new IllegalArgumentException();
+		}
 	}
 
 	@Override

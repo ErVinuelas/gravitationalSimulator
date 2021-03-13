@@ -1,6 +1,7 @@
 package simulator.factories;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import simulator.misc.Vector2D;
@@ -10,11 +11,15 @@ import simulator.model.MovingTowardsFixedPoint;
 public class MovingTowardsFixedPointBuilder extends Builder<ForceLaws>{
 
 	@Override
-	public ForceLaws createTheInstance(JSONObject info) {
+	public ForceLaws createTheInstance(JSONObject info) throws IllegalArgumentException{
+		try {
 		double g = info.getDouble("g");
 		JSONArray jArr = info.getJSONArray("c");
 		Vector2D c = new Vector2D(jArr.getDouble(0), jArr.getDouble(1));
 		return new MovingTowardsFixedPoint(g, c);
+		} catch(JSONException e) {
+			throw new IllegalArgumentException();
+		}
 	}
 
 	@Override
