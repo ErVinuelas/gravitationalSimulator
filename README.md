@@ -1,6 +1,3 @@
-# PracticaTP2
-Código de un simulador físico
-
 # out.1.json
 
 * was generated using the commnd-line
@@ -224,5 +221,4 @@ Código de un simulador físico
 * check epsilon-equivalence (with eps=0.1) using the commnd-line
 
   -i resources/examples/ex4.4body.json -eo resources/output/out.8s.json -s 10000 -fl mtfp -cmp epseq:{eps:0.1}
-
 
