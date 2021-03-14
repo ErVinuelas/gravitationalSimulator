@@ -174,6 +174,7 @@ public class Main {
 			if (s.length() > 0) {
 				s = s + ", ";
 			}
+			
 			s = s + "'" + fe.getString("type") + "' (" + fe.getString("desc") + ")";
 		}
 
@@ -192,9 +193,6 @@ public class Main {
 
 	private static void parseExpectedOutputOption(CommandLine line) throws ParseException {
 		_eoFile = line.getOptionValue("eo");
-		if (_eoFile == null) {
-			throw new ParseException("In batch mode an input file for expected output is required");
-		}
 	}
 
 	private static void parseStepsOption(CommandLine line) {
