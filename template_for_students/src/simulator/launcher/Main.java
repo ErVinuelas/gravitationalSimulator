@@ -2,6 +2,7 @@ package simulator.launcher;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -11,6 +12,7 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.json.JSONObject;
+
 
 import simulator.control.StateComparator;
 import simulator.model.Body;
@@ -32,6 +34,7 @@ public class Main {
 	//
 	private static Double _dtime = null;
 	private static String _oFile = null;
+	private static String _eoFile = null;
 	private static String _inFile = null;
 	private static JSONObject _forceLawsInfo = null;
 	private static JSONObject _stateComparatorInfo = null;
@@ -180,8 +183,8 @@ public class Main {
 	}
 
 	private static void parseExpectedOutputOption(CommandLine line) throws ParseException {
-		_inFile = line.getOptionValue("eo");
-		if (_inFile == null) {
+		_eoFile = line.getOptionValue("eo");
+		if (_eoFile == null) {
 			throw new ParseException("In batch mode an input file for expected output is required");
 		}
 	}
@@ -272,8 +275,19 @@ public class Main {
 
 	private static void startBatchMode() throws Exception {
 		// TODO complete this method
-		PhysicsSimulator simulator = new PhysicsSimulator(_dtime, _forceLawsFactory);
+		ArrayList<ForceLaws> laws = new ArrayList<ForceLaws>();
+		List<JSONObject> info = _forceLawsFactory.getInfo();
+		
+		for(JSONObject jLaw : info)
+			laws.add(_forceLawsFactory.createInstance(jLaw));
+		
+		PhysicsSimulator simulator = new PhysicsSimulator(_dtime, laws);
+		
+		InputStream is = new FileInputStream(new File(_inFile));
+		InputStream eos = new FileInputStream(new File(_eoFile));
 		OutputStream os = _oFile == null ? System.out : new FileOutputStream(new File(_oFile));
+		
+		StateComparator comparator = _stateComparatorFactory.createInstance(_);
 	}
 
 	private static void start(String[] args) throws Exception {
