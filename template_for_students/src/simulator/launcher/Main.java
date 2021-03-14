@@ -276,7 +276,7 @@ public class Main {
 	private static void startBatchMode() throws Exception {
 		// TODO complete this method
 		ArrayList<ForceLaws> laws = new ArrayList<ForceLaws>();
-		List<JSONObject> info = _forceLawsFactory.getInfo();
+		List<JSONObject> info = _forceLawsFactory.getInfo(); 
 		
 		for(JSONObject jLaw : info)
 			laws.add(_forceLawsFactory.createInstance(jLaw));
@@ -287,7 +287,7 @@ public class Main {
 		InputStream eos = new FileInputStream(new File(_eoFile));
 		OutputStream os = _oFile == null ? System.out : new FileOutputStream(new File(_oFile));
 		
-		StateComparator comparator = _stateComparatorFactory.createInstance(_);
+		StateComparator comparator = _stateComparatorFactory.createInstance;
 	}
 
 	private static void start(String[] args) throws Exception {

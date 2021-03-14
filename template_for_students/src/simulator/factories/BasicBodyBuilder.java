@@ -17,15 +17,13 @@ public class BasicBodyBuilder extends Builder<Body>{
 	public Body createTheInstance(JSONObject info) {
 		String id = info.getString("id");
 		
-		JSONObject jData = info.getJSONObject("data"); //Accedemos al JSONObject data
-		
-		JSONArray jP = jData.getJSONArray("p");//Accedemos a possicion y creamos
+		JSONArray jP = info.getJSONArray("p");//Accedemos a possicion y creamos
 		Vector2D position = new Vector2D(jP.getDouble(0), jP.getDouble(1));
 		
-		JSONArray jV = jData.getJSONArray("v");//Accedemos a la velocidad y creamos
+		JSONArray jV = info.getJSONArray("v");//Accedemos a la velocidad y creamos
 		Vector2D velocity = new Vector2D(jV.getDouble(0), jV.getDouble(1));
 		
-		double mass = jData.getDouble("m");//Accedemos a la masa
+		double mass = info.getDouble("m");//Accedemos a la masa
 		
 		return new Body(id, velocity, position, mass);
 	}
