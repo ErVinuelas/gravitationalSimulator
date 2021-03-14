@@ -8,6 +8,11 @@ import simulator.control.StateComparator;
 
 public class EpsilonEqualStatesBuilder extends Builder<StateComparator>{
 
+	public EpsilonEqualStatesBuilder() {
+		_typeTag = "epseq";
+		_desc = "epsilon comparator";
+	}
+	
 	@Override
 	public StateComparator createTheInstance(JSONObject info) throws IllegalArgumentException{
 		try {

@@ -7,6 +7,12 @@ import simulator.control.StateComparator;
 
 public class MassEqualStatesBuilder extends Builder<StateComparator>{
 
+	public MassEqualStatesBuilder() {
+		_typeTag = "masseq";
+		_desc = "mass comparator";
+	}
+	
+	
 	@Override
 	public StateComparator createTheInstance(JSONObject info) throws IllegalArgumentException{
 		return new MassEqualStates();

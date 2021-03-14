@@ -10,6 +10,12 @@ import simulator.model.MovingTowardsFixedPoint;
 
 public class MovingTowardsFixedPointBuilder extends Builder<ForceLaws>{
 
+	public MovingTowardsFixedPointBuilder() {
+		_typeTag = "mtcp";
+		_desc = "a force that obligues to move towards a point";
+	}
+	
+	
 	@Override
 	public ForceLaws createTheInstance(JSONObject info) throws IllegalArgumentException{
 		try {

@@ -9,6 +9,7 @@ import simulator.model.Body;
 import simulator.model.MassLossingBody;
 
 public class MassLosingBodyBuilder extends Builder<Body>{
+	
 	public MassLosingBodyBuilder() {
 		_typeTag = "mlb";
 		_desc = "a body that loses mass";

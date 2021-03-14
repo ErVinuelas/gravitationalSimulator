@@ -5,6 +5,7 @@ import org.json.JSONObject;
 public abstract class Builder<T> {
 	protected String _typeTag;
 	protected String _desc;
+	
 	/*Metodos*/
 	
 	public T createInstance(JSONObject info) {

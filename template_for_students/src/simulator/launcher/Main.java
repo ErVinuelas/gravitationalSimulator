@@ -13,7 +13,7 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.json.JSONObject;
 
-
+import simulator.control.Controller;
 import simulator.control.StateComparator;
 import simulator.model.Body;
 import simulator.model.ForceLaws;
@@ -22,7 +22,7 @@ import simulator.model.PhysicsSimulator;
 
 public class Main {
 
-	// default values for some parameters
+	// Valores por defecto para algunos parametros
 	//
 	private final static Double _dtimeDefaultValue = 2500.0;
 	private final static String _forceLawsDefaultValue = "nlug";
@@ -30,24 +30,24 @@ public class Main {
 
 	private final static Integer _stepsDefaultValue = 150;
 
-	// some attributes to stores values corresponding to command-line parameters
+	// atributos correspondientes a valores que se han de introducir por la linea de comandos
 	//
-	private static Double _dtime = null;
-	private static String _oFile = null;
-	private static String _eoFile = null;
-	private static String _inFile = null;
-	private static JSONObject _forceLawsInfo = null;
+	private static Double _dtime = null; 	//Tiempo que pasa en cada paso de la simulacion
+	private static String _oFile = null;	//Archivo de salida
+	private static String _eoFile = null;	//Achibo de salida experada
+	private static String _inFile = null;	//Archivo de entrada
+	private static JSONObject _forceLawsInfo = null;	
 	private static JSONObject _stateComparatorInfo = null;
 
 	private static Integer _steps = null;
 
-	// factories
+	// factorias
 	private static Factory<Body> _bodyFactory;
 	private static Factory<ForceLaws> _forceLawsFactory;
 	private static Factory<StateComparator> _stateComparatorFactory;
 
 	private static void init() {
-		// initialize the bodies factory
+		// inicializamos la factoria de cuerpos
 
 		ArrayList<Builder<Body>> bodyBuilders = new ArrayList<>();
 
@@ -56,7 +56,7 @@ public class Main {
 
 		_bodyFactory = new BuilderBasedFactory<Body>(bodyBuilders);
 
-		// TODO initialize the force laws factory
+		// inicializamos la factoria de leyes de fuerza
 
 		ArrayList<Builder<ForceLaws>> lawBuilders = new ArrayList<>();
 
@@ -66,7 +66,7 @@ public class Main {
 
 		_forceLawsFactory = new BuilderBasedFactory<ForceLaws>(lawBuilders);
 
-		// initialize the state comparator
+		// inicializamos la factoria de comparadores de estado
 
 		ArrayList<Builder<StateComparator>> stateBuilders = new ArrayList<>();
 
@@ -78,11 +78,11 @@ public class Main {
 
 	private static void parseArgs(String[] args) {
 
-		// define the valid command line options
+		// definimos los valores validos para la linea de comandos
 		//
 		Options cmdLineOptions = buildOptions();
 
-		// parse the command line as provided in args
+		// parseamos la entrada de la linea de comandos
 		//
 		CommandLineParser parser = new DefaultParser();
 		try {
@@ -90,7 +90,7 @@ public class Main {
 
 			parseHelpOption(line, cmdLineOptions);
 			parseInFileOption(line);
-			// TODO add support of -o, -eo, and -s (define corresponding parse methods)
+			// nuevos metodos de parseo anadidos(o, eo y s)
 			parseOutputOption(line);
 			parseExpectedOutputOption(line);
 			parseStepsOption(line);
@@ -125,7 +125,8 @@ public class Main {
 
 		// input file
 		cmdLineOptions.addOption(Option.builder("i").longOpt("input").hasArg().desc("Bodies JSON input file.").build());
-
+		
+		/*Nuevos comandos anadidos*/
 		// output
 		cmdLineOptions.addOption(Option.builder("o").longOpt("output").hasArg()
 				.desc("Output file, where output is written.Default value: the standard output.").build());
@@ -137,6 +138,8 @@ public class Main {
 		// steps
 		cmdLineOptions.addOption(Option.builder("s").longOpt("steps").hasArg()
 				.desc("An integer representating the number of simulation steps. Default value: 150").build());
+		
+		/*Aqui acaban*/
 
 		// delta-time
 		cmdLineOptions.addOption(Option.builder("dt").longOpt("delta-time").hasArg()
@@ -178,8 +181,13 @@ public class Main {
 		return s;
 	}
 
-	private static void parseOutputOption(CommandLine line) {
+	
+	/*Metodos nuevos*/
+	private static void parseOutputOption(CommandLine line) throws ParseException{
 		_oFile = line.getOptionValue("o");
+		if(_oFile == null) {
+			throw new ParseException("In batch mode an output file for the output is required");
+		}
 	}
 
 	private static void parseExpectedOutputOption(CommandLine line) throws ParseException {
@@ -193,7 +201,8 @@ public class Main {
 		String stps = line.getOptionValue("s", _stepsDefaultValue.toString());
 		_steps = Integer.parseInt(stps);
 	}
-
+	/*Acaban metodos nuevos*/
+	
 	private static void parseHelpOption(CommandLine line, Options cmdLineOptions) {
 		if (line.hasOption("h")) {
 			HelpFormatter formatter = new HelpFormatter();
@@ -274,20 +283,27 @@ public class Main {
 	}
 
 	private static void startBatchMode() throws Exception {
-		// TODO complete this method
+
 		ArrayList<ForceLaws> laws = new ArrayList<ForceLaws>();
-		List<JSONObject> info = _forceLawsFactory.getInfo(); 
-		
-		for(JSONObject jLaw : info)
+		List<JSONObject> info = _forceLawsFactory.getInfo();
+
+		for (JSONObject jLaw : info)
 			laws.add(_forceLawsFactory.createInstance(jLaw));
-		
-		PhysicsSimulator simulator = new PhysicsSimulator(_dtime, laws);
-		
-		InputStream is = new FileInputStream(new File(_inFile));
-		InputStream eos = new FileInputStream(new File(_eoFile));
-		OutputStream os = _oFile == null ? System.out : new FileOutputStream(new File(_oFile));
-		
-		StateComparator comparator = _stateComparatorFactory.createInstance;
+
+		PhysicsSimulator simulator = new PhysicsSimulator(_dtime, laws); //Creamos el simulador
+
+		InputStream is = new FileInputStream(new File(_inFile)); 		//Flujo de entrada
+		InputStream eos = _eoFile == null ? null : new FileInputStream(new File(_eoFile));	//Flujo para comparar(salida esperada)
+		OutputStream os = _oFile == null ? System.out : new FileOutputStream(new File(_oFile));	//Flujo de salida
+
+		StateComparator cmp = _stateComparatorFactory.createInstance(_stateComparatorInfo);	//Comparador de estado
+
+		Controller controller = new Controller(simulator, _bodyFactory);	//Creamos el controlador
+
+		controller.loadBodies(is);	//Cargamos los cuerpos
+
+		controller.run(_steps, os, eos, cmp); //Hacemos que se ejecuten los pasos correspondientes
+
 	}
 
 	private static void start(String[] args) throws Exception {

@@ -8,6 +8,12 @@ import simulator.model.NewtonUniversalGravitation;
 
 public class NewtonUniversalGravitationBuilder extends Builder<ForceLaws>{
 
+	public NewtonUniversalGravitationBuilder() {
+		_typeTag = "nlug";
+		_desc = "a forcer that behaves as Newton stated";
+	}
+	
+	
 	@Override
 	public ForceLaws createTheInstance(JSONObject info) throws IllegalArgumentException{
 		try {

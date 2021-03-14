@@ -35,6 +35,7 @@ public class Controller {
 	}
 	
 	public void run(int n, OutputStream out, InputStream expOut, StateComparator cmp) throws NonEqualStatesException {
+		
 		JSONArray jStates = null;
 		if (expOut != null) {
 			JSONObject jsonInput = new JSONObject(new JSONTokener(expOut));
