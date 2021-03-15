@@ -9,6 +9,9 @@ import simulator.model.ForceLaws;
 import simulator.model.MovingTowardsFixedPoint;
 
 public class MovingTowardsFixedPointBuilder extends Builder<ForceLaws>{
+	
+	private static final double Defaultg = 9.81;
+	private static final Vector2D Defaultc = new Vector2D(0.0, 0.0);
 
 	public MovingTowardsFixedPointBuilder() {
 		_typeTag = "mtcp";
@@ -18,11 +21,23 @@ public class MovingTowardsFixedPointBuilder extends Builder<ForceLaws>{
 	
 	@Override
 	public ForceLaws createTheInstance(JSONObject info) throws IllegalArgumentException{
+		double g;
+		Vector2D c;
 		try {
-		double g = info.getDouble("g");
-		JSONArray jArr = info.getJSONArray("c");
-		Vector2D c = new Vector2D(jArr.getDouble(0), jArr.getDouble(1));
-		return new MovingTowardsFixedPoint(g, c);
+			if(info.has("g")) {
+			g = info.getDouble("g");
+			} 
+			else {
+				g = Defaultg;
+			}
+			if(info.has("c")) {
+			JSONArray jArr = info.getJSONArray("c");
+			c = new Vector2D(jArr.getDouble(0), jArr.getDouble(1));
+			}
+			else {
+				c = Defaultc;
+			}
+			return new MovingTowardsFixedPoint(g, c);
 		} catch(JSONException e) {
 			throw new IllegalArgumentException();
 		}
@@ -31,11 +46,8 @@ public class MovingTowardsFixedPointBuilder extends Builder<ForceLaws>{
 	@Override
 	public JSONObject createData() {
 		JSONObject jo = new JSONObject();
-		jo.put("g", 9.81);
-		double aux[] = new double[2];
-		aux[0] = 0;
-		aux[1] = 0;
-		jo.put("c", new JSONArray(aux));
+		jo.put("g", Defaultg);
+		jo.put("c", new JSONArray(Defaultc));
 		return jo;
 	}
 
