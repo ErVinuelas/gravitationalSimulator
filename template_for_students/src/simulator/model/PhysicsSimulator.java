@@ -6,28 +6,28 @@ import org.json.*;
 public class PhysicsSimulator {
 
 	private double dt;
-	private ArrayList<ForceLaws> laws;
+	private ForceLaws law;
 	private ArrayList<Body> bodies;
 
 	private double time = 0.0;
 
 	/* Constructor */
 
-	public PhysicsSimulator(double dt, ArrayList<ForceLaws> laws) {
+	public PhysicsSimulator(double dt, ForceLaws law) {
 		this.dt = dt;
-		this.laws = laws;
+		this.law = law;
 		bodies = new ArrayList<Body>();
 	}
 
 	/* Métodos */
 
 	public void advance() {
-		for (Body bd : bodies)
+		
+		for (Body bd : bodies) {
 			bd.resetForce();
-		for (ForceLaws law : laws)
 			law.apply(bodies);
-		for (Body bd : bodies)
 			bd.move(dt);
+		}
 		time += dt;
 	}
 

@@ -289,7 +289,7 @@ public class Main {
 
 	private static void startBatchMode() throws Exception {
 
-		PhysicsSimulator simulator = new PhysicsSimulator(_dtime, _forceLawsInfo); //Creamos el simulador
+		PhysicsSimulator simulator = new PhysicsSimulator(_dtime, _forceLawsFactory.createInstance(_forceLawsInfo)); //Creamos el simulador
 
 		InputStream is = new FileInputStream(new File(_inFile)); 		//Flujo de entrada
 		InputStream eos = _eoFile == null ? null : new FileInputStream(new File(_eoFile));	//Flujo para comparar(salida esperada)
