@@ -185,14 +185,21 @@ public class Main {
 	
 	/*Metodos nuevos*/
 	private static void parseOutputOption(CommandLine line) throws ParseException{
-		_oFile = line.getOptionValue("o");
-		if(_oFile == null) {
-			throw new ParseException("In batch mode an output file for the output is required");
+			if(line.hasOption("o")) {
+			_oFile = line.getOptionValue("o");
+			if(_oFile == null) {
+				throw new ParseException("In batch mode an output file for the output is required");
+			}
 		}
 	}
 
 	private static void parseExpectedOutputOption(CommandLine line) throws ParseException {
-		_eoFile = line.getOptionValue("eo");
+		if(line.hasOption("eo")) {
+			_eoFile = line.getOptionValue("eo");
+			if(_eoFile == null) {
+				throw new ParseException("In batch mode an expected output file is required");
+			}
+		}
 	}
 
 	private static void parseStepsOption(CommandLine line) {
