@@ -46,8 +46,11 @@ public class MovingTowardsFixedPointBuilder extends Builder<ForceLaws>{
 	@Override
 	public JSONObject createData() {
 		JSONObject jo = new JSONObject();
+		double aux[] = new double[2];
+		aux[0] = Defaultc.getX();
+		aux[1] = Defaultc.getY();
 		jo.put("g", Defaultg);
-		jo.put("c", new JSONArray(Defaultc));
+		jo.put("c", new JSONArray(aux));
 		return jo;
 	}
 
