@@ -17,8 +17,13 @@ public class NewtonUniversalGravitation implements ForceLaws{
 	
 	public Vector2D NewtonForce(Body b1, Body b2) {
 		Vector2D dij = new Vector2D(b2.getPosition().minus(b1.getPosition()));
-		double fij = G * ((b1.getMass() * b2.getMass())/(Math.pow(dij.magnitude(), 2)));
-		return dij.scale(fij);
+		if(dij.magnitude() != 0) {
+			double fij = G * ((b1.getMass() * b2.getMass())/(Math.pow(dij.magnitude(), 2)));
+			return dij.scale(fij);
+		}
+		else {
+			return new Vector2D(0.0, 0.0);
+		}
 	}
 
 	@Override
