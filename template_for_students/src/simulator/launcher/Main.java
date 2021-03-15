@@ -282,18 +282,13 @@ public class Main {
 
 	private static void startBatchMode() throws Exception {
 
-		ArrayList<ForceLaws> laws = new ArrayList<ForceLaws>();
-		List<JSONObject> info = _forceLawsFactory.getInfo();
-
-		for (JSONObject jLaw : info)
-			laws.add(_forceLawsFactory.createInstance(jLaw));
-
-		PhysicsSimulator simulator = new PhysicsSimulator(_dtime, laws); //Creamos el simulador
+		PhysicsSimulator simulator = new PhysicsSimulator(_dtime, _forceLawsInfo); //Creamos el simulador
 
 		InputStream is = new FileInputStream(new File(_inFile)); 		//Flujo de entrada
 		InputStream eos = _eoFile == null ? null : new FileInputStream(new File(_eoFile));	//Flujo para comparar(salida esperada)
 		OutputStream os = _oFile == null ? System.out : new FileOutputStream(new File(_oFile));	//Flujo de salida
-
+		
+		
 		StateComparator cmp = _stateComparatorFactory.createInstance(_stateComparatorInfo);	//Comparador de estado
 
 		Controller controller = new Controller(simulator, _bodyFactory);	//Creamos el controlador
