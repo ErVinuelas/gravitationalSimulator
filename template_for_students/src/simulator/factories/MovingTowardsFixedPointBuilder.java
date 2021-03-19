@@ -14,7 +14,7 @@ public class MovingTowardsFixedPointBuilder extends Builder<ForceLaws>{
 	private static final Vector2D Defaultc = new Vector2D(0.0, 0.0);
 
 	public MovingTowardsFixedPointBuilder() {
-		_typeTag = "mtcp";
+		_typeTag = "mtfp";
 		_desc = "a force that obligues to move towards a point";
 	}
 	
