@@ -41,14 +41,14 @@ public class PhysicsSimulator {
 
 	public JSONObject getState() {
 		JSONObject simulator = new JSONObject();
-		simulator.append("time", time);
+		simulator.put("time", time);
 		ArrayList<JSONObject> jBodies = new ArrayList<JSONObject>();
 		for (Body bd : bodies) {
 			JSONObject jBody = new JSONObject();
 			jBody = bd.getState();
 			jBodies.add(jBody);
 		}
-		simulator.append("bodies", jBodies);
+		simulator.put("bodies", jBodies);
 
 		return simulator;
 	}

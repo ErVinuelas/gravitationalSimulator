@@ -60,20 +60,25 @@ public class Body { //Representa una entidad física
 		if(mass != 0) {
 			acceleration = new Vector2D(force.scale(1/mass));
 		}
-		position = position.plus((velocity.scale(t)).plus(acceleration.scale(t*t/2)));
+		position = position.plus((velocity.scale(t)).plus(acceleration.scale(t*t*0.5)));
 		velocity = velocity.plus(acceleration.scale(t));
 	}
 	
 	public JSONObject getState() {
-		JSONObject data = new JSONObject();
 		JSONObject state = new JSONObject();
-		state.put("type", "basic");
-		data.put("p", position.asJSONArray());
-		data.put("v", velocity.asJSONArray());
-		data.put("m", mass);
-		state.put("data", data);
-
-		return data;
+		double aux[] = new double[2];
+		state.put("id", id);
+		state.put("m", mass);
+		aux[0] = position.getX();
+		aux[1] = position.getY();
+		state.put("p", aux);
+		aux[0] = velocity.getX();
+		aux[1] = velocity.getY();
+		state.put("v", aux);
+		aux[0] = force.getX();
+		aux[1] = force.getY();
+		state.put("f", aux);
+		return state;
 	}
 	
 	public String toString() {
