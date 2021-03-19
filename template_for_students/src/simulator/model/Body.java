@@ -56,13 +56,11 @@ public class Body { //Representa una entidad física
 	}
 	
 	void move(double t) {
-		Vector2D acceleration = new Vector2D();
+		Vector2D acceleration = new Vector2D(0,0);
 		if(mass != 0) {
 			acceleration = new Vector2D(force.scale(1/mass));
 		}
-		else {
-			acceleration = new Vector2D(0, 0);
-		}
+		
 		position = position.plus((velocity.scale(t)).plus(acceleration.scale(t*t*0.5)));
 		velocity = velocity.plus(acceleration.scale(t));
 	}
