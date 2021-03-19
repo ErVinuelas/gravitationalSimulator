@@ -46,8 +46,7 @@ public class PhysicsSimulator {
 		simulator.put("time", time);
 		ArrayList<JSONObject> jBodies = new ArrayList<JSONObject>();
 		for (Body bd : bodies) {
-			JSONObject jBody = new JSONObject();
-			jBody = bd.getState();
+			JSONObject jBody = bd.getState();
 			jBodies.add(jBody);
 		}
 		simulator.put("bodies", jBodies);

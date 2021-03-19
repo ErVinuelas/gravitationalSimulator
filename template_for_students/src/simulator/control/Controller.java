@@ -54,7 +54,7 @@ public class Controller {
 			JSONObject aux = simulator.getState();
 			if (expOut != null) {
 				if (!cmp.equal(aux, jStates.getJSONObject(i))) {
-					throw new NonEqualStatesException(aux, jStates.getJSONObject(i), n);
+					throw new NonEqualStatesException(aux, jStates.getJSONObject(i), i);
 				}
 			}
 			p.println("," + aux);

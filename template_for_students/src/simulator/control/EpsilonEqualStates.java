@@ -17,8 +17,8 @@ public class EpsilonEqualStates implements StateComparator{
 	}
 	
 	private boolean equals(JSONArray jV1, JSONArray jV2) {
-		Vector2D v1 = new Vector2D(jV1.getInt(0), jV1.getInt(1));
-		Vector2D v2 = new Vector2D(jV2.getInt(0), jV2.getInt(1));
+		Vector2D v1 = new Vector2D(jV1.getDouble(0), jV1.getDouble(1));
+		Vector2D v2 = new Vector2D(jV2.getDouble(0), jV2.getDouble(1));
 		return v1.distanceTo(v2) <= eps;
 	}
 	

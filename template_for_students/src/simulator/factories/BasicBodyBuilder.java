@@ -32,12 +32,8 @@ public class BasicBodyBuilder extends Builder<Body>{
 	public JSONObject createData() {
 		JSONObject jo = new JSONObject();
 		jo.put("id", "b1");
-		double aux[] = new double[2];
-		aux[0] = aux[1] = 0.0E00;
-		jo.put("p", new JSONArray(aux));
-		aux[0] = 0.05E04;
-		aux[1] = 0.0E00;
-		jo.put("v", new JSONArray(aux));
+		jo.put("p", new Vector2D().asJSONArray());
+		jo.put("v", new Vector2D(0.05E04, 0.0E00).asJSONArray());
 		jo.put("m", 5.97E24);
 		return jo;
 	}

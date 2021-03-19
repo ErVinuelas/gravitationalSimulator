@@ -16,7 +16,7 @@ public class NonEqualStatesException extends Exception{
 	}
 	
 	public NonEqualStatesException(JSONObject s1, JSONObject s2, int n) {
-		super("Los estados :" + s1.toString() + " y " + s2.toString() + " no coinciden, estos"
+		super("Los estados :" + s1.toString() + " y " + s2.toString() + " no coinciden, estos "
 				+ "estados se corresponden con el estado numero:" + n);
 	}
 	
