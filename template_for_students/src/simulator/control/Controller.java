@@ -49,7 +49,7 @@ public class Controller {
 		JSONObject s0 = simulator.getState();
 		p.println(s0);
 
-		for (int i = 0; i < n; ++i) {
+		for (int i = 1; i <= n; ++i) {
 			simulator.advance();
 			JSONObject aux = simulator.getState();
 			if (expOut != null) {

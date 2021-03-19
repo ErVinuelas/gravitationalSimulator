@@ -37,10 +37,10 @@ public class EpsilonEqualStates implements StateComparator{
 			JSONObject bd1 = jBodies1.getJSONObject(i);
 			JSONObject bd2 = jBodies2.getJSONObject(i);
 			if(!bd1.getString("id").equals(bd2.getString("id"))) {	return false;	} //Comparamos identificadores
-			if(!this.equals(bd1.getJSONObject("data").getDouble("m"),bd2.getJSONObject("data").getDouble("m"))) {	return false;	}//Comparamos masas
-			if(!this.equals(bd1.getJSONObject("data").getJSONArray("p"),bd2.getJSONObject("data").getJSONArray("p"))) {	return false;	}//Comparamos posiciones
-			if(!this.equals(bd1.getJSONObject("data").getJSONArray("v"),bd2.getJSONObject("data").getJSONArray("v"))) {	return false;	}//Comparamos velocidades
-			if(!this.equals(bd1.getJSONObject("data").getJSONArray("f"),bd2.getJSONObject("data").getJSONArray("f"))) {	return false;	}//Comparamos fuerzas
+			if(!this.equals(bd1.getDouble("m"),bd2.getDouble("m"))) {	return false;	}//Comparamos masas
+			if(!this.equals(bd1.getJSONArray("p"),bd2.getJSONArray("p"))) {	return false;	}//Comparamos posiciones
+			if(!this.equals(bd1.getJSONArray("v"),bd2.getJSONArray("v"))) {	return false;	}//Comparamos velocidades
+			if(!this.equals(bd1.getJSONArray("f"),bd2.getJSONArray("f"))) {	return false;	}//Comparamos fuerzas
 		}
 
 		return true;

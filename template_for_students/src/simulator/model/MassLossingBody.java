@@ -36,7 +36,7 @@ public class MassLossingBody extends Body{
 		if(mass != 0) {
 			acceleration = new Vector2D(force.scale(1/mass));
 		}
-		position = position.plus((velocity.scale(t)).plus(acceleration.scale(t*t/2)));
+		position = position.plus((velocity.scale(t)).plus(acceleration.scale(t*t*0.5)));
 		velocity = velocity.plus(acceleration.scale(t));
 		c += t;
 		if(c >= lossFrequency) {

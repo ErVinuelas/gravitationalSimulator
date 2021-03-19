@@ -25,7 +25,9 @@ public class PhysicsSimulator {
 		
 		for (Body bd : bodies) {
 			bd.resetForce();
-			law.apply(bodies);
+		}
+		law.apply(bodies);
+		for(Body bd : bodies) {
 			bd.move(dt);
 		}
 		time += dt;
