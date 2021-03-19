@@ -52,7 +52,7 @@ public class Body { //Representa una entidad física
 	}
 	
 	void resetForce() {
-		force = force.scale(0);
+		force = new Vector2D();
 	}
 	
 	void move(double t) {

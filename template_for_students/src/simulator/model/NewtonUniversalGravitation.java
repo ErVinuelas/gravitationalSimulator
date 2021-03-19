@@ -19,7 +19,7 @@ public class NewtonUniversalGravitation implements ForceLaws{
 		Vector2D difPosic = new Vector2D(b2.getPosition().minus(b1.getPosition()));
 		double distancia = b2.getPosition().distanceTo(b1.getPosition());
 		if(distancia != 0.0) {
-			double fij = G * ((b1.getMass() * b2.getMass())/(distancia*distancia));
+			double fij = (G * b1.getMass() * b2.getMass())/(distancia*distancia);
 			return difPosic.direction().scale(fij);
 		}
 		else {
