@@ -57,7 +57,7 @@ public class Controller {
 					throw new NonEqualStatesException(aux, jStates.getJSONObject(i), n);
 				}
 			}
-			p.println(aux);
+			p.println("," + aux);
 		}
 
 		p.println("]");

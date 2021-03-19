@@ -60,7 +60,10 @@ public class Body { //Representa una entidad física
 		if(mass != 0) {
 			acceleration = new Vector2D(force.scale(1/mass));
 		}
-		position = position.plus((velocity.scale(t)).plus(acceleration.scale(t*t/2)));
+		else {
+			acceleration = new Vector2D(0, 0);
+		}
+		position = position.plus((velocity.scale(t)).plus(acceleration.scale(t*t*0.5)));
 		velocity = velocity.plus(acceleration.scale(t));
 	}
 	
@@ -70,6 +73,8 @@ public class Body { //Representa una entidad física
 		state.put("type", "basic");
 		data.put("p", position.asJSONArray());
 		data.put("v", velocity.asJSONArray());
+		data.put("f", force.asJSONArray());
+		data.put("id", id);
 		data.put("m", mass);
 		state.put("data", data);
 
