@@ -68,17 +68,20 @@ public class Body { //Representa una entidad física
 	}
 	
 	public JSONObject getState() {
-		JSONObject data = new JSONObject();
 		JSONObject state = new JSONObject();
-		state.put("type", "basic");
-		data.put("p", position.asJSONArray());
-		data.put("v", velocity.asJSONArray());
-		data.put("f", force.asJSONArray());
-		data.put("id", id);
-		data.put("m", mass);
-		state.put("data", data);
-
-		return data;
+		double aux[] = new double[2];
+		state.put("id", id);
+		state.put("m", mass);
+		aux[0] = position.getX();
+		aux[1] = position.getY();
+		state.put("p", aux);
+		aux[0] = velocity.getX();
+		aux[1] = velocity.getY();
+		state.put("v", aux);
+		aux[0] = force.getX();
+		aux[1] = force.getY();
+		state.put("f", aux);
+		return state;
 	}
 	
 	public String toString() {

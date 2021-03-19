@@ -1,3 +1,10 @@
+### Simulador físico
+----------------------------------------
+En esta práctica vamos a llevar a cabo un simulador físico que va a implementar dtas. tipos de cuerpos, fuerzas y estados de comparación. Un día escribiré un poco más.
+
+Los comandos que tenemos que ejecutar como casos de prueba son:
+
+
 # out.1.json
 
 * was generated using the commnd-line
