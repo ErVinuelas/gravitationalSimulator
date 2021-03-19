@@ -5,12 +5,14 @@ import java.util.List;
 import simulator.misc.Vector2D;
 
 public class MovingTowardsFixedPoint implements ForceLaws{
+	private final static double Defaultg = 9.81;
+	private final static Vector2D Defaultc = new Vector2D();
 	private double g;
 	private Vector2D c;
 	
 	public MovingTowardsFixedPoint() {
-		g = 9.81;
-		c = new Vector2D(0.0, 0.0);
+		g = Defaultg;
+		c = Defaultc;
 	}
 	
 	public MovingTowardsFixedPoint(double g, Vector2D c) {

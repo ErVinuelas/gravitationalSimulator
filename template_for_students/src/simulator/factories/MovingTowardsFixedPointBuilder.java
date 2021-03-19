@@ -11,7 +11,7 @@ import simulator.model.MovingTowardsFixedPoint;
 public class MovingTowardsFixedPointBuilder extends Builder<ForceLaws>{
 	
 	private static final double Defaultg = 9.81;
-	private static final Vector2D Defaultc = new Vector2D(0.0, 0.0);
+	private static final Vector2D Defaultc = new Vector2D();
 
 	public MovingTowardsFixedPointBuilder() {
 		_typeTag = "mtfp";
