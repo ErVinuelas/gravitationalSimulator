@@ -12,8 +12,8 @@ import java.io.PrintStream;
 
 public class Controller {
 	
-	private PhysicsSimulator simulator;
-	private Factory<Body> constructor;
+	private PhysicsSimulator simulator;	//Representa el simulador físico
+	private Factory<Body> constructor;	//Constructor de los cuerpos
 	
 	/*Constructor*/
 	
@@ -22,11 +22,18 @@ public class Controller {
 		this.simulator = simulator;
 	}
 	
+	
+	/*Métodos*/
+	
+	/**
+	 * Carga los cuerpos del flujo in en el simulador
+	 * @param in Flujo de entrada de donde se cargan los cuerpos
+	 */
 	public void loadBodies(InputStream in) {
 
-		JSONObject jsonInput = new JSONObject(new JSONTokener(in));
+		JSONObject jsonInput = new JSONObject(new JSONTokener(in));	//Cargamos la información en un JSONObject
 
-		int length = jsonInput.getJSONArray("bodies").length();
+		int length = jsonInput.getJSONArray("bodies").length();		//Recorremos el JSONObject para crear y anadir los distintos cuerpos al simulador
 		for (int i = 0; i < length; ++i) {
 			JSONObject jBd = jsonInput.getJSONArray("bodies").getJSONObject(i);
 			Body newBody = constructor.createInstance(jBd);
@@ -34,27 +41,35 @@ public class Controller {
 		}
 	}
 	
+	/**
+	 * Lleva a cabo los pasos indicados por n, sacando los datos por out y comparando con expOut(a traves de cmp) en caso de que se proporcione como parametro
+	 * @param n Numero de pasos que se van a llevar a cabo
+	 * @param out	Flujo de salida
+	 * @param expOut	Flujo de entrada de la salida esperada
+	 * @param cmp	Comparador que vamos a utilizar
+	 * @throws NonEqualStatesException	Si los estados no son iguales según el comparador utilizado salta una excepción
+	 */
 	public void run(int n, OutputStream out, InputStream expOut, StateComparator cmp) throws NonEqualStatesException {
 		
 		JSONArray jStates = null;
 		if (expOut != null) {
-			JSONObject jsonInput = new JSONObject(new JSONTokener(expOut));
+			JSONObject jsonInput = new JSONObject(new JSONTokener(expOut));	//Cargamos la expected output en un JSONObject
 			jStates = jsonInput.getJSONArray("states");
 		}
 
-		PrintStream p = new PrintStream(out);
+		PrintStream p = new PrintStream(out);	//Creamos un flujo de salida a a partir del proporcionado
 		p.println("{");
 		p.println("\"states\": [");
 
-		JSONObject s0 = simulator.getState();
+		JSONObject s0 = simulator.getState();	//Sacamos el primer estado
 		p.println(s0);
 
-		for (int i = 1; i <= n; ++i) {
-			simulator.advance();
+		for (int i = 1; i <= n; ++i) {	//Sacamos los sucesivos estados
+			simulator.advance();	//Avanzamos un paso en la simulación
 			JSONObject aux = simulator.getState();
 			if (expOut != null) {
-				if (!cmp.equal(aux, jStates.getJSONObject(i))) {
-					throw new NonEqualStatesException(aux, jStates.getJSONObject(i), i);
+				if (!cmp.equal(aux, jStates.getJSONObject(i))) {	//Comparamos con la salida esperada
+					throw new NonEqualStatesException(aux, jStates.getJSONObject(i), i);	//Salta excepción si no son iguales por el cmp
 				}
 			}
 			p.println("," + aux);

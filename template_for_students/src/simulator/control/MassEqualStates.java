@@ -4,6 +4,12 @@ import org.json.*;
 
 public class MassEqualStates implements StateComparator{
 	
+	
+	/**
+	 * Devuelve true si los estados s1 y s2 son iguales por masa, es decir
+	 * los parametros de tiempo de ambos estados han de ser iguales, asi como
+	 * los id y masa de cada cuerpo.
+	 */
 	public boolean equal(JSONObject s1, JSONObject s2) {
 		
 		if(s1.getDouble("time") != s2.getDouble("time")) {	return false;	}

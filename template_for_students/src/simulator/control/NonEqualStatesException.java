@@ -5,7 +5,7 @@ import org.json.JSONObject;
 public class NonEqualStatesException extends Exception{
 
 	/**
-	 * 
+	 * Exceción que muestra cuando dos estados son distintos
 	 */
 	private static final long serialVersionUID = 1L;
 	
