@@ -13,6 +13,7 @@ public class MovingTowardsFixedPointBuilder extends Builder<ForceLaws>{
 	private static final double Defaultg = 9.81;
 	private static final Vector2D Defaultc = new Vector2D();
 
+	//Constructor por defecto
 	public MovingTowardsFixedPointBuilder() {
 		_typeTag = "mtfp";
 		_desc = "a force that obligues to move towards a point";
@@ -20,17 +21,18 @@ public class MovingTowardsFixedPointBuilder extends Builder<ForceLaws>{
 	
 	
 	@Override
+	//devuelve una instancia de MovingTowardsFixedPoint a partir de un JSONObject si los datos son validos
 	public ForceLaws createTheInstance(JSONObject info) throws IllegalArgumentException{
 		double g;
 		Vector2D c;
 		try {
-			if(info.has("g")) {
+			if(info.has("g")) { //Comprobamos el valor de g. Si no se especifica, tomamos el valor por defecto
 			g = info.getDouble("g");
 			} 
 			else {
 				g = Defaultg;
 			}
-			if(info.has("c")) {
+			if(info.has("c")) { //Comprobamos el valor de c (el centro). Si no se especifica, tomamos el valor por defecto
 			JSONArray jArr = info.getJSONArray("c");
 			c = new Vector2D(jArr.getDouble(0), jArr.getDouble(1));
 			}
@@ -38,12 +40,13 @@ public class MovingTowardsFixedPointBuilder extends Builder<ForceLaws>{
 				c = Defaultc;
 			}
 			return new MovingTowardsFixedPoint(g, c);
-		} catch(JSONException e) {
-			throw new IllegalArgumentException();
+		} catch(JSONException j) { //Si los datos no son validos lanzamos una excepcion
+			throw new IllegalArgumentException(j);
 		}
 	}
 
 	@Override
+	//Se crea una instancia con valores por defecto en formato JSONObject
 	public JSONObject createData() {
 		JSONObject jo = new JSONObject();
 		jo.put("g", Defaultg);

@@ -10,24 +10,26 @@ import simulator.model.MassLossingBody;
 
 public class MassLosingBodyBuilder extends Builder<Body>{
 	
+	//Constructor por defecto
 	public MassLosingBodyBuilder() {
 		_typeTag = "mlb";
 		_desc = "a body that loses mass";
 	}
 	
+	//Crea una instancia de MassLosingBody a partir de un JSONObject si los datos son validos
 	public MassLossingBody createTheInstance(JSONObject info) throws IllegalArgumentException{
 		try {
-		String id = info.getString("id");
-		JSONArray jArr = info.getJSONArray("p");
-		Vector2D position = new Vector2D(jArr.getDouble(0), jArr.getDouble(1));
-		jArr = info.getJSONArray("v");
-		Vector2D velocity = new Vector2D(jArr.getDouble(0), jArr.getDouble(1));
-		double mass = info.getDouble("m");
-		double freq = info.getDouble("freq");
-		double factor = info.getDouble("factor");
-		return new MassLossingBody(id, velocity, position, mass, factor, freq);
-		} catch(JSONException e) {
-			throw new IllegalArgumentException();
+			String id = info.getString("id"); //Accedemos al identificador
+			JSONArray jArr = info.getJSONArray("p"); //Accedemos a la posicion y creamos el vector
+			Vector2D position = new Vector2D(jArr.getDouble(0), jArr.getDouble(1));
+			jArr = info.getJSONArray("v"); //Accedemos a la velocidad y creamos el vector
+			Vector2D velocity = new Vector2D(jArr.getDouble(0), jArr.getDouble(1));
+			double mass = info.getDouble("m"); //Accedemos a la masa
+			double freq = info.getDouble("freq"); //Accedemos a la frecuencia
+			double factor = info.getDouble("factor"); //Accedemos al factor de perdida de masa
+			return new MassLossingBody(id, velocity, position, mass, factor, freq); //Devolvemos una instancia de MassLossingBody con los datos proporcionados
+		} catch(JSONException j) {
+			throw new IllegalArgumentException(j); //Si alguno de los datos no es valido lanzamos una excepcion
 		}
 	}
 

@@ -10,6 +10,7 @@ public class NewtonUniversalGravitationBuilder extends Builder<ForceLaws>{
 	
 	private static final double DefaultG = 6.67e-11;
 
+	//Constructor por defecto
 	public NewtonUniversalGravitationBuilder() {
 		_typeTag = "nlug";
 		_desc = "a force that behaves as Newton stated";
@@ -17,18 +18,19 @@ public class NewtonUniversalGravitationBuilder extends Builder<ForceLaws>{
 	
 	
 	@Override
+	//Devuelve una instancia de NewtonUniversalGravitation a partir de un JSONObject si los datos introducidos son validos
 	public ForceLaws createTheInstance(JSONObject info) throws IllegalArgumentException{
 		try {
 			double G;
-			if(info.has("G")) {
+			if(info.has("G")) { //Comprobamos el valor de la constante G. Si no se especifica tomamos el valor por defecto
 				G = info.getDouble("G");
 			}
 			else {
 				G = DefaultG;
 			}
 			return new NewtonUniversalGravitation(G);
-		} catch(JSONException e) {
-			throw new IllegalArgumentException();
+		} catch(JSONException j) { //Si los datos introducidos no son validos lanzamos una excepcion
+			throw new IllegalArgumentException(j);
 		}
 	}
 

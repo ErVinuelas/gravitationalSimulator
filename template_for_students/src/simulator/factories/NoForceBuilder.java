@@ -6,16 +6,20 @@ import simulator.model.ForceLaws;
 import simulator.model.NoForce;
 
 public class NoForceBuilder extends Builder<ForceLaws>{
+	
+	//Constructor por defecto
 	public NoForceBuilder() {
 		_typeTag = "nf";
 		_desc = "no force is applied";
 	}
 	@Override
+	//Devuelve una instancia de NoForce
 	public ForceLaws createTheInstance(JSONObject info) throws IllegalArgumentException{
 		return new NoForce();
 	}
 
 	@Override
+	//Devuelve una instancia de NoForce en formato JSONObject con valores por defecto
 	public JSONObject createData() {
 		return new JSONObject();
 	}
