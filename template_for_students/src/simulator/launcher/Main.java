@@ -98,8 +98,8 @@ public class Main {
 			parseForceLawsOption(line);
 			parseStateComparatorOption(line);
 
-			// if there are some remaining arguments, then something wrong is
-			// provided in the command line!
+			// Si quedan algunos argumentos restantes, entonces algo
+			// esta mal en la entrada por la línea de comandos
 			//
 			String[] remaining = line.getArgs();
 			if (remaining.length > 0) {
@@ -183,24 +183,39 @@ public class Main {
 
 	
 	/*Metodos nuevos*/
+	/**
+	 * Parsea la entrada de la línea de comandos para el valor 'o' 
+	 * @param line	Línea de comandos
+	 * @throws ParseException	Se devuelve esta excepción si el archivo de salida no se ha cargado bien
+	 */
 	private static void parseOutputOption(CommandLine line) throws ParseException{
 			if(line.hasOption("o")) {
-			_oFile = line.getOptionValue("o");
-			if(_oFile == null) {
-				throw new ParseException("In batch mode an output file for the output is required");
+				_oFile = line.getOptionValue("o");
+				if(_oFile == null) {
+					throw new ParseException("The command -o, --output <arg> requires a valid file");
 			}
 		}
 	}
 
+	/**
+	 * 
+	 * Parsea la entrada de la línea de comandos par el valor "eo"
+	 * @param line	Línea de comandos
+	 * @throws ParseException	Se devuelve esta excepción si el archivo no se ha cargado bien
+	 */
 	private static void parseExpectedOutputOption(CommandLine line) throws ParseException {
 		if(line.hasOption("eo")) {
 			_eoFile = line.getOptionValue("eo");
 			if(_eoFile == null) {
-				throw new ParseException("In batch mode an expected output file is required");
+				throw new ParseException("The command -eo, --expected-output <arg> requires a valid file");
 			}
 		}
 	}
 
+	/**
+	 * Carga los paso a ejcutar en el simulador
+	 * @param line	Linea de comandos
+	 */
 	private static void parseStepsOption(CommandLine line) {
 		String stps = line.getOptionValue("s", _stepsDefaultValue.toString());
 		_steps = Integer.parseInt(stps);
