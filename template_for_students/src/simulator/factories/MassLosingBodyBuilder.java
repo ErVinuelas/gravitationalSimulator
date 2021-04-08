@@ -25,11 +25,11 @@ public class MassLosingBodyBuilder extends Builder<Body>{
 			jArr = info.getJSONArray("v"); //Accedemos a la velocidad y creamos el vector
 			Vector2D velocity = new Vector2D(jArr.getDouble(0), jArr.getDouble(1));
 			double mass = info.getDouble("m"); //Accedemos a la masa
-			if(mass < 0) {	throw new IllegalArgumentException();	}
+			if(mass < 0) {	throw new IllegalArgumentException("The body has negative mass.");	}
 			double freq = info.getDouble("freq"); //Accedemos a la frecuencia
-			if(freq < 0) {	throw new IllegalArgumentException();	}
+			if(freq < 0) {	throw new IllegalArgumentException("The body has negative frequency.");	}
 			double factor = info.getDouble("factor"); //Accedemos al factor de perdida de masa
-			if(factor < 0 || factor > 1) {	throw new IllegalArgumentException();	}
+			if(factor < 0 || factor > 1) {	throw new IllegalArgumentException("The body factor is not between 0 and 1.");	}
 			return new MassLossingBody(id, velocity, position, mass, factor, freq); //Devolvemos una instancia de MassLossingBody con los datos proporcionados
 		} catch(JSONException j) {
 			throw new IllegalArgumentException(j); //Si alguno de los datos no es valido lanzamos una excepcion
