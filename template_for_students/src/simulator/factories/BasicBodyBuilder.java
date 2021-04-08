@@ -27,6 +27,7 @@ public class BasicBodyBuilder extends Builder<Body>{
 		Vector2D velocity = new Vector2D(jV.getDouble(0), jV.getDouble(1));
 		
 		double mass = info.getDouble("m");//Accedemos a la masa
+		if(mass < 0) { throw new IllegalArgumentException("The body factor is not between 0 and 1.");	}
 		
 		return new Body(id, velocity, position, mass); //Devuelve una instancia de cuerpo con los atributos del JSONObject
 		} catch(JSONException j) {
