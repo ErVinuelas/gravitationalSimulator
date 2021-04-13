@@ -61,12 +61,17 @@ public class Controller {
 		p.println("{");
 		p.println("\"states\": [");
 
-		JSONObject s0 = simulator.getState();	//Sacamos el primer estado
-		p.println(s0);
+		JSONObject aux = simulator.getState();	//Sacamos el primer estado
+		if (expOut != null) {
+			if (!cmp.equal(aux, jStates.getJSONObject(0))) {	//Comparamos con la salida esperada
+				throw new NonEqualStatesException(aux, jStates.getJSONObject(0), 0);	//Salta excepción si no son iguales por el cmp
+			}
+		}
+		p.println(aux);
 
 		for (int i = 1; i <= n; ++i) {	//Sacamos los sucesivos estados
 			simulator.advance();	//Avanzamos un paso en la simulación
-			JSONObject aux = simulator.getState();
+			aux = simulator.getState();
 			if (expOut != null) {
 				if (!cmp.equal(aux, jStates.getJSONObject(i))) {	//Comparamos con la salida esperada
 					throw new NonEqualStatesException(aux, jStates.getJSONObject(i), i);	//Salta excepción si no son iguales por el cmp

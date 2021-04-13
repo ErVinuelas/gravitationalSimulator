@@ -34,10 +34,9 @@ public class PhysicsSimulator {
 
 	//Añade un cuerpo a la lista de cuerpos
 	public void addBody(Body b) {
-		for (Body bd : bodies)
-			if (bd.equals(b)) { //Si el cuerpo ya esta añadido se lanza una excepcion
+		if(bodies.contains(b)){//Si el cuerpo ya esta añadido se lanza una excepcion
 				throw new IllegalArgumentException();
-			}
+		}
 		bodies.add(b);
 	}
 

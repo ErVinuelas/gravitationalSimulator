@@ -310,7 +310,7 @@ public class Main {
 		OutputStream os = _oFile == null ? System.out : new FileOutputStream(new File(_oFile));	//Flujo de salida
 		
 		
-		StateComparator cmp = _stateComparatorFactory.createInstance(_stateComparatorInfo);	//Comparador de estado
+		StateComparator cmp = eos == null ? null : _stateComparatorFactory.createInstance(_stateComparatorInfo);	//Comparador de estado
 
 		Controller controller = new Controller(simulator, _bodyFactory);	//Creamos el controlador
 

@@ -34,12 +34,7 @@ public class MassLossingBody extends Body{
 	
 	//Devuelve el estado del cuerpo, es decir, el valor de sus atributos, en forma de JSONObject
 	void move(double t) {
-		Vector2D acceleration = new Vector2D();
-		if(mass != 0) { //Si la masa es 0 la aceleracion es nula
-			acceleration = new Vector2D(force.scale(1/mass));
-		}
-		position = position.plus((velocity.scale(t)).plus(acceleration.scale(t*t*0.5))); //Variamos la posicion y la velocidad atendiendo a la aceleracion
-		velocity = velocity.plus(acceleration.scale(t));
+		super.move(t);
 		c += t; //Aumentamos el contador
 		if(c >= lossFrequency) { //Y si sobrepasa la frecuencia lo reiniciamos y variamos la masa
 			mass = mass * (1 - lossFactor);

@@ -7,10 +7,16 @@ import java.util.List;
 
 public class BuilderBasedFactory<T> implements Factory<T>{
 	private List<Builder<T>> builders;
+	private List<JSONObject> UnmodListJo;
 	
 	//Constructor con parametro de lista de builders
 	public BuilderBasedFactory(List<Builder<T>> list){
 		builders = list;
+		List<JSONObject> listjo = new ArrayList<>();
+		for(Builder<T> b : builders) {
+			listjo.add(b.getBuilderInfo()); //Para esto llamamos al getInfo de cada builder
+		}
+		UnmodListJo = Collections.unmodifiableList(listjo); //Inicializamos la lista como no modificable
 	}
 
 	//Dado un JSONObject creamos una instancia que encaje con la informacion del mismo
@@ -29,11 +35,6 @@ public class BuilderBasedFactory<T> implements Factory<T>{
 	//Crea una lista de instancias por defecto de cuerpos, leyes y comparadores en forma de JSONObjects
 	@Override
 	public List<JSONObject> getInfo() { 
-		List<JSONObject> listjo = new ArrayList<>();
-		for(Builder<T> b : builders) {
-			listjo.add(b.getBuilderInfo()); //Para esto llamamos al getInfo de cada builder
-		}
-		List<JSONObject> UnmodListJo = Collections.unmodifiableList(listjo); //Devolvemos la lista como no modificable
 		return UnmodListJo;
 	}
 }
