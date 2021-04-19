@@ -33,5 +33,9 @@ public class MovingTowardsFixedPoint implements ForceLaws{
 			bd.addForce(f);
 		}
 	}
+	
+	public String toString() {
+	    return "Moving towards " + c + " with constant acceleration " + g;
+	}
 
 }
