@@ -49,9 +49,12 @@ public class MovingTowardsFixedPointBuilder extends Builder<ForceLaws>{
 	//Se crea una instancia con valores por defecto en formato JSONObject
 	public JSONObject createData() {
 		JSONObject jo = new JSONObject();
-		jo.put("g", Defaultg);
-		jo.put("c", Defaultc.asJSONArray());
-		return jo;
+		jo.append("type", _typeTag);
+		JSONObject jd = new JSONObject();
+		jd.append("c", "the point towards which bodies move");
+		jd.append("g", "the length of the acceleration vector (a number)");
+		jo.append("data", jd);
+		jo.append("desc", _desc)
 	}
 
 }

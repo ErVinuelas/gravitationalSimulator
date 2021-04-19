@@ -13,7 +13,7 @@ public class NewtonUniversalGravitationBuilder extends Builder<ForceLaws>{
 	//Constructor por defecto
 	public NewtonUniversalGravitationBuilder() {
 		_typeTag = "nlug";
-		_desc = "a force that behaves as Newton stated";
+		_desc = "Newton's law of universal gravitation";
 	}
 	
 	
@@ -33,13 +33,15 @@ public class NewtonUniversalGravitationBuilder extends Builder<ForceLaws>{
 			throw new IllegalArgumentException(j);
 		}
 	}
-
 	@Override
 	public JSONObject createData() {
-		double G = DefaultG;
 		JSONObject jo = new JSONObject();
-		jo.put("G", G);
-		return jo;
+		jo.append("type", _typeTag);
+		JSONObject jd = new JSONObject();
+		jd.append("G", "the gravitational constant (a number)");
+		jo.append("data", jd);
+		jo.append("desc", _desc);	
+		
 	}
 	
 }
