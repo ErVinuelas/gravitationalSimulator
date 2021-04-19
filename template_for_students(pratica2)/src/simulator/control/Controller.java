@@ -13,13 +13,15 @@ import java.io.PrintStream;
 public class Controller {
 	
 	private PhysicsSimulator simulator;	//Representa el simulador físico
-	private Factory<Body> constructor;	//Constructor de los cuerpos
+	private Factory<Body> constructorBodies;	//Constructor de los cuerpos
+	private Factory<ForceLaws> constructorForceLaws;
 	
 	/*Constructor*/
 	
-	public Controller(PhysicsSimulator simulator, Factory<Body> constructor) {
-		this.constructor = constructor;
+	public Controller(PhysicsSimulator simulator, Factory<Body> constructorBodies, Factory<ForceLaws> constructorForceLaws) {
+		this.constructorBodies = constructorBodies;
 		this.simulator = simulator;
+		this.constructorForceLaws = constructorForceLaws;
 	}
 	
 	
@@ -36,7 +38,7 @@ public class Controller {
 		int length = jsonInput.getJSONArray("bodies").length();		//Recorremos el JSONObject para crear y anadir los distintos cuerpos al simulador
 		for (int i = 0; i < length; ++i) {
 			JSONObject jBd = jsonInput.getJSONArray("bodies").getJSONObject(i);
-			Body newBody = constructor.createInstance(jBd);
+			Body newBody = constructorBodies.createInstance(jBd);
 			simulator.addBody(newBody);
 		}
 	}
@@ -82,6 +84,37 @@ public class Controller {
 
 		p.println("]");
 		p.println("}");
+	}
+	
+	public void reset() {
+	    this.simulator.reset();
+	}
+	
+	public void setDeltaTime(double dt) {
+	    this.simulator.setDeltaTime(dt);
+	}
+	
+	public void addObserver(SimulatorObserver o) {
+	    this.simulator.addObserver(o);
+	}
+	
+	public void run(int n) {
+	    for(int i = 0; i < n; ++i) {
+		simulator.advance();
+	    }
+	}
+	
+	//TO DO: Actualizar para que las cosas de la GUI vayan
+	public List<JSONObject> getForceLawsInfo(){
+	    /*Aqui vienen cosas de GUI que todavia no entiendo*/
+	    return constructorForceLaws.getInfo();
+	}
+	
+	public void setForceLaws(JSONObject info) {
+	    for(int i = 0; i < info.length(); ++i) {
+		JSONObeject jaux = constructorForceLaws.getJSONObject(i);
+		
+	    }
 	}
 	
 }
