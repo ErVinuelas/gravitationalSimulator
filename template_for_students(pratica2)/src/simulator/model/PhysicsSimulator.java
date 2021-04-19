@@ -41,17 +41,17 @@ public class PhysicsSimulator {
 	}
 	
 	
-	public body reset() {
+	public void reset() {
 	    dt = 0.0;
 	    bodies.clear();
 	}
 	
-	public setDeltaTime(double dt) {
+	public void setDeltaTime(double dt) throws IllegalArgumentException{
 	    if(dt > 0) {
-		this.dt = dt;
+	    	this.dt = dt;
 	    }
 	    else {
-		throw new IllegalArgumentException("The DeltaTime is not greater than 0");
+	    	throw new IllegalArgumentException("The DeltaTime is not greater than 0");
 	    }
 	}
 	
