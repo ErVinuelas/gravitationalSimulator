@@ -55,7 +55,7 @@ public class PhysicsSimulator {
 	    }
 	}
 	
-	public void setForceLawsLaws(ForceLaws forceLaws) {
+	public void setForceLaws(ForceLaws forceLaws) {
 	    if(!forceLaws.equals(null)) {
 		this.law = forceLaws;
 	    }
