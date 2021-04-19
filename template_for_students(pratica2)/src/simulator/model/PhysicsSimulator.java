@@ -32,13 +32,39 @@ public class PhysicsSimulator {
 		time += dt; //Aumenta el contador del simulador
 	}
 
-	//Añade un cuerpo a la lista de cuerpos
+	//Aï¿½ade un cuerpo a la lista de cuerpos
 	public void addBody(Body b) {
-		if(bodies.contains(b)){//Si el cuerpo ya esta añadido se lanza una excepcion
+		if(bodies.contains(b)){//Si el cuerpo ya esta aï¿½adido se lanza una excepcion
 				throw new IllegalArgumentException();
 		}
 		bodies.add(b);
 	}
+	
+	
+	public body reset() {
+	    dt = 0.0;
+	    bodies.clear();
+	}
+	
+	public setDeltaTime(double dt) {
+	    if(dt > 0) {
+		this.dt = dt;
+	    }
+	    else {
+		throw new IllegalArgumentException("The DeltaTime is not greater than 0");
+	    }
+	}
+	
+	public void setForceLawsLaws(ForceLaws forceLaws) {
+	    if(!forceLaws.equals(null)) {
+		this.law = forceLaws;
+	    }
+	    else {
+		throw new IllegalArgumentException("The force laws are equal to null");
+	    }
+	}
+	
+	
 
 	//Devuelve el estado del simulador en formato JSONObject
 	public JSONObject getState() {
@@ -46,7 +72,7 @@ public class PhysicsSimulator {
 		simulator.put("time", time);
 		ArrayList<JSONObject> jBodies = new ArrayList<JSONObject>();
 		for (Body bd : bodies) {
-			JSONObject jBody = bd.getState(); //Devuelve el estado de cada cuerpo y lo añade al JSONObject
+			JSONObject jBody = bd.getState(); //Devuelve el estado de cada cuerpo y lo aï¿½ade al JSONObject
 			jBodies.add(jBody);
 		}
 		simulator.put("bodies", jBodies);
