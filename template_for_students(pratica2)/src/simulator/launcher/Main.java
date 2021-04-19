@@ -339,7 +339,12 @@ public class Main {
 
 	private static void start(String[] args) throws Exception {
 		parseArgs(args);
-		startBatchMode();
+		if(_mode.equals("batch")) {
+			startBatchMode();
+		}
+		else {
+			startGuiMode();
+		}
 	}
 
 	public static void main(String[] args) {
