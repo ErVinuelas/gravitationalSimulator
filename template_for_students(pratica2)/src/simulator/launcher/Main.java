@@ -35,6 +35,7 @@ public class Main {
 	private static String _oFile = null;	//Archivo de salida
 	private static String _eoFile = null;	//Achibo de salida experada
 	private static String _inFile = null;	//Archivo de entrada
+	private static String _mode = null;
 	private static JSONObject _forceLawsInfo = null;	
 	private static JSONObject _stateComparatorInfo = null;
 
@@ -88,12 +89,17 @@ public class Main {
 			CommandLine line = parser.parse(cmdLineOptions, args);
 
 			parseHelpOption(line, cmdLineOptions);
+			parseModeOption(line);
 			parseInFileOption(line);
 			// nuevos metodos de parseo anadidos(o, eo y s)
-			parseOutputOption(line);
+			if(_mode != "gui") {
+				parseOutputOption(line);
+			}
 			parseExpectedOutputOption(line);
-			parseStepsOption(line);
-
+			if(_mode != "gui") {
+				parseStepsOption(line);
+			}
+			
 			parseDeltaTimeOption(line);
 			parseForceLawsOption(line);
 			parseStateComparatorOption(line);
@@ -137,6 +143,10 @@ public class Main {
 		// steps
 		cmdLineOptions.addOption(Option.builder("s").longOpt("steps").hasArg()
 				.desc("An integer representating the number of simulation steps. Default value: 150").build());
+		
+		//mode
+		cmdLineOptions.addOption(Option.builder("m").longOpt("mode").hasArg()
+				.desc("Execution Mode. Possible values: ’batch’ (Batch mode), ’gui’ (Graphical User Interface mode). Default value: ’batch’.").build());
 		
 		/*Aqui acaban*/
 
@@ -232,9 +242,16 @@ public class Main {
 
 	private static void parseInFileOption(CommandLine line) throws ParseException {
 		_inFile = line.getOptionValue("i");
-		if (_inFile == null) {
+		if (_inFile == null && _mode.equals("batch")) {
 			throw new ParseException("In batch mode an input file of bodies is required");
 		}
+	}
+	
+	private static void parseModeOption(CommandLine line) throws ParseException{
+		String mode = line.getOptionValue("m");
+		if(mode == null) {_mode = "batch";}
+		else if(!mode.equals("gui") && !mode.equals("batch")) { throw new ParseException("Invalid mode: " + mode); }
+		else { _mode = mode; }
 	}
 
 	private static void parseDeltaTimeOption(CommandLine line) throws ParseException {
