@@ -41,7 +41,7 @@ public class NewtonUniversalGravitationBuilder extends Builder<ForceLaws>{
 		jd.append("G", "the gravitational constant (a number)");
 		jo.append("data", jd);
 		jo.append("desc", _desc);	
-		
+		return jo;
 	}
 	
 }

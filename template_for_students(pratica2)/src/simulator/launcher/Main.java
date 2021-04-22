@@ -329,7 +329,7 @@ public class Main {
 		
 		StateComparator cmp = eos == null ? null : _stateComparatorFactory.createInstance(_stateComparatorInfo);	//Comparador de estado
 
-		Controller controller = new Controller(simulator, _bodyFactory);	//Creamos el controlador
+		Controller controller = new Controller(simulator, _bodyFactory, _forceLawsFactory);	//Creamos el controlador
 
 		controller.loadBodies(is);	//Cargamos los cuerpos
 

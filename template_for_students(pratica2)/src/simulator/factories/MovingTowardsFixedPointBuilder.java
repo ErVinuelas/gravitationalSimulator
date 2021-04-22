@@ -54,7 +54,8 @@ public class MovingTowardsFixedPointBuilder extends Builder<ForceLaws>{
 		jd.append("c", "the point towards which bodies move");
 		jd.append("g", "the length of the acceleration vector (a number)");
 		jo.append("data", jd);
-		jo.append("desc", _desc)
+		jo.append("desc", _desc);
+		return jo;
 	}
 
 }

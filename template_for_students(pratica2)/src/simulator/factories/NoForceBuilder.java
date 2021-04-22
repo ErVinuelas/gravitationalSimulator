@@ -25,6 +25,7 @@ public class NoForceBuilder extends Builder<ForceLaws>{
 		jo.append("type", _typeTag);
 		jo.append("data", new JSONObject());
 		jo.append("desc", "No force");
+		return jo;
 	}
 	
 }

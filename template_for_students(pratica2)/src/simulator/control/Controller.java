@@ -114,10 +114,8 @@ public class Controller {
 	}
 	
 	public void setForceLaws(JSONObject info) {
-	    for(int i = 0; i < info.length(); ++i) {
-		JSONObject jaux = constructorForceLaws.getJSONObject(i);
-		
-	    }
+		ForceLaws aux = constructorForceLaws.createInstance(info);
+	    simulator.setForceLaws(aux);
 	}
 	
 }
