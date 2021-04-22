@@ -1,7 +1,9 @@
 package simulator.control;
 
 import simulator.model.PhysicsSimulator;
+import simulator.model.SimulatorObserver;
 import simulator.model.Body;
+import simulator.model.ForceLaws;
 import simulator.factories.Factory;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -9,6 +11,7 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 import org.json.JSONArray;
 import java.io.PrintStream;
+import java.util.List;
 
 public class Controller {
 	
@@ -112,7 +115,7 @@ public class Controller {
 	
 	public void setForceLaws(JSONObject info) {
 	    for(int i = 0; i < info.length(); ++i) {
-		JSONObeject jaux = constructorForceLaws.getJSONObject(i);
+		JSONObject jaux = constructorForceLaws.getJSONObject(i);
 		
 	    }
 	}
