@@ -28,27 +28,27 @@ implements SimulatorObserver {
 	@Override
 	public int getRowCount() {
 	// TODO complete
-		return _bodies == null ? 0 : _bodies.size();
+		return _bodies == null ? 0 : _bodies.size(); //Si la lista de cuerpos es distinta de null el numero de filas coincide con el numero de cuerpos
 	}
 	
 	@Override
 	public int getColumnCount() {
 	// TODO complete
-		return _colNames.length;
+		return _colNames.length; //Hemos definido las columnas asi que coinciden con la longitud de nuestro array de String
 	}
 	
 	@Override
 	public String getColumnName(int column) {
 	// TODO complete
-		return _colNames[column];
+		return _colNames[column]; //Devuelve el nombre de una columna especifica
 	}
 	
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 	// TODO complete
-		Object s = null;
-		switch(columnIndex) {
-		case 0:
+		Object s = null; //Si los datos introoducidos no son validos se devolvera null
+		switch(columnIndex) { //Devolvemos un atributo distinto de body dependiendo de la columna
+		case 0:				  //Siempre se toma el body correspondiente a la fila dada
 			s = _bodies.get(rowIndex).getId();
 			break;
 		case 1:
@@ -70,8 +70,8 @@ implements SimulatorObserver {
 	// SimulatorObserver methods
 	// ...
 	@Override
-	public void onRegister(List<Body> bodies, double time, double dt, String fLawsDesc) {
-		// TODO Auto-generated method stub
+	public void onRegister(List<Body> bodies, double time, double dt, String fLawsDesc) { //En los metodos del Observer solo actualizaremos _bodies cuando sea necesario
+		// TODO Auto-generated method stub												  //Y posteriormente actualizaremos la tabla
 		_bodies = bodies;
 		fireTableDataChanged();
 	}

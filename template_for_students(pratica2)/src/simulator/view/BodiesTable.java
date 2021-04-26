@@ -25,9 +25,9 @@ public class BodiesTable extends JPanel {
 		"Bodies",
 		TitledBorder.LEFT, TitledBorder.TOP));
 		// TODO complete
-		JTable table = new JTable(new BodiesTableModel(ctrl));
-		JScrollPane jpane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		this.add(jpane);
+		JTable table = new JTable(new BodiesTableModel(ctrl)); //Creamos la tabla a partir del modelo creado a partir del controlador
+		JScrollPane jpane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); //Añadimos la tabla a un scrollpane
+		this.add(jpane); //Y posteriormente añadimos el ScrollPane con la tabla al Panel
 		
 	}
 }
