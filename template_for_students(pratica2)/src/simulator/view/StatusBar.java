@@ -1,12 +1,16 @@
 package simulator.view;
 
 import java.awt.FlowLayout;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
+import extra.jtable.MainWindow;
 import simulator.control.Controller;
 import simulator.model.Body;
 import simulator.model.SimulatorObserver;
@@ -31,13 +35,15 @@ implements SimulatorObserver {
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
 		this.setBorder(BorderFactory.createBevelBorder(1));
 		// TODO complete the code to build the tool bar
-		
+		add(_currTime);
+		add(_numOfBodies);
+		add(_currLaws);
 	}
 
 	@Override
 	public void onRegister(List<Body> bodies, double time, double dt, String fLawsDesc) { //En los metodos del Observer modificaremos las etiquetas cuando se pueda haber
 		// TODO Auto-generated method stub												  //modificado un atributo del simulador
-		_currTime = new JLabel("Tiempo: " + time);
+		_currTime = new JLabel("Time: " + time);
 		_numOfBodies = new JLabel("Bodies: " + bodies.size());
 		_currLaws = new JLabel(fLawsDesc);
 	}

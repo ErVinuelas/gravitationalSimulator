@@ -3,6 +3,9 @@ package simulator.launcher;
 import java.io.*;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -18,6 +21,8 @@ import simulator.model.Body;
 import simulator.model.ForceLaws;
 import simulator.factories.*;
 import simulator.model.PhysicsSimulator;
+import simulator.view.MainWindow;
+import simulator.view.StatusBar;
 
 public class Main {
 
@@ -345,6 +350,16 @@ public class Main {
 		else {
 			startGuiMode();
 		}
+	}
+	
+	private static void startGuiMode() {
+		PhysicsSimulator simulator = new PhysicsSimulator(_dtime, _forceLawsFactory.createInstance(_forceLawsInfo)); //Creamos el simulador
+		Controller controller = new Controller(simulator, _bodyFactory, _forceLawsFactory);	//Creamos el controlador
+		SwingUtilities.invokeLater(new Runnable(){
+			public void run() {
+				new MainWindow(controller);
+			}
+		});
 	}
 
 	public static void main(String[] args) {
