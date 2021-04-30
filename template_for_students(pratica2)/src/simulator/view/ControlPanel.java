@@ -1,11 +1,15 @@
 package simulator.view;
 
+import java.awt.Dimension;
 import java.util.List;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
@@ -39,7 +43,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 	
 	private void initGUI() {
 		// TODO build the tool bar by adding buttons, etc.
-		//setLayout(new FlowLayout());
+		setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
 		button1 = new JButton(new ImageIcon("resources/icons/open.png"));
 		button2 = new JButton(new ImageIcon("resources/icons/physics.png"));
 		button3 = new JButton(new ImageIcon("resources/icons/run.png"));
@@ -50,13 +54,18 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 		JLabel lbl2 = new JLabel("Delta-Time:");
 		_d_time = new JTextField("2500.0");
 		add(button1);
+		add(Box.createRigidArea(new Dimension(20, 0)));
 		add(button2);
+		add(Box.createRigidArea(new Dimension(20, 0)));
 		add(button3);
 		add(button4);
 		add(lbl1);
+		scrl1.setMaximumSize(new Dimension(500, 50));
 		add(scrl1);
 		add(lbl2);
+		_d_time.setMaximumSize(new Dimension(500, 50));
 		add(_d_time);
+		add(Box.createHorizontalGlue());
 		add(button5);
 	}
 	
