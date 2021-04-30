@@ -1,5 +1,6 @@
 package simulator.view;
 
+import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
@@ -8,6 +9,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.SwingUtilities;
 
 import extra.jtable.MainWindow;
@@ -27,8 +29,8 @@ implements SimulatorObserver {
 	private JLabel _numOfBodies; // for number of bodies
 	
 	StatusBar(Controller ctrl) {
-		initGUI();
 		ctrl.addObserver(this);
+		initGUI();
 	}
 	
 	private void initGUI() {
@@ -36,7 +38,9 @@ implements SimulatorObserver {
 		this.setBorder(BorderFactory.createBevelBorder(1));
 		// TODO complete the code to build the tool bar
 		add(_currTime);
+		add(new JSeparator(JSeparator.VERTICAL));
 		add(_numOfBodies);
+		add(new JSeparator(JSeparator.VERTICAL));
 		add(_currLaws);
 	}
 

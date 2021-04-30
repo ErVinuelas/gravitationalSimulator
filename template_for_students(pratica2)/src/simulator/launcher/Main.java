@@ -1,6 +1,7 @@
 package simulator.launcher;
 
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -352,14 +353,20 @@ public class Main {
 		}
 	}
 	
-	private static void startGuiMode() {
+	private static void startGuiMode() throws InvocationTargetException, InterruptedException {
 		PhysicsSimulator simulator = new PhysicsSimulator(_dtime, _forceLawsFactory.createInstance(_forceLawsInfo)); //Creamos el simulador
 		Controller controller = new Controller(simulator, _bodyFactory, _forceLawsFactory);	//Creamos el controlador
-		SwingUtilities.invokeLater(new Runnable(){
-			public void run() {
-				new MainWindow(controller);
-			}
-		});
+		try {
+			SwingUtilities.invokeAndWait(new Runnable(){
+				public void run() {
+					new MainWindow(controller);
+				}
+			});
+		}catch(InvocationTargetException e) {
+			throw e;
+		}catch(InterruptedException e) {
+			throw e;
+		}
 	}
 
 	public static void main(String[] args) {

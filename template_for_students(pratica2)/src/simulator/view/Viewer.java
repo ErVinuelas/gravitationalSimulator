@@ -19,6 +19,10 @@ import simulator.model.Body;
 import simulator.model.SimulatorObserver;
 
 public class Viewer extends JComponent implements SimulatorObserver {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6393075307639932520L;
 	// ...
 	private int _centerX;
 	private int _centerY;
